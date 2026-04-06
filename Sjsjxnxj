@@ -1,0 +1,2072 @@
+-- [[ CLANSY EXTERNAL LOADER START ]] --
+local player = game:GetService("Players").LocalPlayer
+local border = "============================================================"
+
+local clansy = [[
+      ____ _        _    _   _   ______ __   __
+                 / ___| |      / \  | \ | | / ___   \ \ / /
+                | |   | |     / _ \ |  \| | \___ \   \   / 
+                | |___| |___ / ___ \| |\  | ____) |   | |  
+                 \____|_____/_/   \_|_| \_| _____/    |_|  
+]]
+
+local external = [[
+     _______ __   __ _____ ______ ____   _   _    _    _  
+                |  ____\ \ \ / /_   __|  ____|  __ \| \ | |  / \  | |    
+                |  __|_   \   /  | |  |  __| | |__) |  \| | / _ \ | |    
+                |  ____|  /   \  | |  |  |___|  _  /| |\  |/ ___ \| |____
+                |_______/_/ \ _\ |_|  |______|_| \_\|_| \_/_/   \_\______|
+]]
+
+local goodluck = [[
+     ____  ____  ____    _____     _         _    _   _____  _  _
+                / ___|/ __ \|  __ \ |  __ \   | |       | |  | | /  ___ | |/ /
+               | |  _| |  | | |  | || |  | |  | |       | |  | | | |    |   \ 
+               | |_| | |__| | |__| || |__| |  | |_____  | |__| | | |___ | |\ \
+                \____|\____/|____ / |_____/   |_______\ |____/ \ \_____ |_| \_\
+]]
+
+-- Солидная загрузка на экране
+local sg = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
+local label = Instance.new("TextLabel", sg)
+label.Size = UDim2.new(1, 0, 1, 0)
+label.BackgroundTransparency = 1
+label.TextColor3 = Color3.new(1, 1, 1)
+label.TextSize = 45
+label.Font = Enum.Font.GothamBold
+label.Text = "Clansy External Loading . . ."
+
+-- Уведомление
+game:GetService("StarterGui"):SetCore("SendNotification", {
+    Title = player.Name .. " inject Clansy External, Lucky!",
+    Text = "Initializing System...",
+    Duration = 5
+})
+
+-- Вывод твоего арта в консоль
+warn(border)
+print(clansy)
+warn("------------------------------------------------------------")
+print(external)
+warn("------------------------------------------------------------")
+print(goodluck)
+warn(border)
+
+task.wait(3)
+sg:Destroy()
+-- [[ CLANSY EXTERNAL LOADER END ]] --
+
+-- ДАЛЬШЕ ИДЕТ ТВОЙ ОСНОВНОЙ КОД:
+ local MY_CHEAT_TITLE = "PRIVATE EXTERNAL"
+-- ========================================================================
+-- [ СИСТЕМА КЛЮЧЕЙ (ВСТАВЛЯТЬ В САМОЕ НАЧАЛО СКРИПТА) ]
+-- ========================================================================
+local CoreGui = game:GetService("CoreGui")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+
+local isAuthenticated = false
+local keyType = "" -- "lifetime" или "temp"
+
+-- Создаем UI для ввода ключа
+local KeyGui = Instance.new("ScreenGui")
+KeyGui.Name = "KeySystemUI"
+KeyGui.ResetOnSpawn = false
+local successGui = pcall(function() KeyGui.Parent = CoreGui end)
+if not successGui then KeyGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 350, 0, 200)
+MainFrame.Position = UDim2.new(0.5, -175, 0.5, -100)
+MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = KeyGui
+
+local UICorner = Instance.new("UICorner")
+UICorner.CornerRadius = UDim.new(0, 10)
+UICorner.Parent = MainFrame
+
+local UIStroke = Instance.new("UIStroke")
+UIStroke.Color = Color3.fromRGB(255, 0, 80)
+UIStroke.Thickness = 2
+UIStroke.Parent = MainFrame
+
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "ВВЕДИТЕ КЛЮЧ"
+Title.TextColor3 = Color3.fromRGB(255, 0, 80)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 20
+Title.Parent = MainFrame
+
+local TextBox = Instance.new("TextBox")
+TextBox.Size = UDim2.new(0, 300, 0, 40)
+TextBox.Position = UDim2.new(0.5, -150, 0, 60)
+TextBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+TextBox.TextColor3 = Color3.new(1, 1, 1)
+TextBox.PlaceholderText = "Введи ключ сюда..."
+TextBox.Font = Enum.Font.Gotham
+TextBox.TextSize = 14
+TextBox.Parent = MainFrame
+Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0, 6)
+
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Size = UDim2.new(1, 0, 0, 20)
+StatusLabel.Position = UDim2.new(0, 0, 0, 105)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Text = ""
+StatusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
+StatusLabel.Font = Enum.Font.Gotham
+StatusLabel.TextSize = 13
+StatusLabel.Parent = MainFrame
+
+local SubmitBtn = Instance.new("TextButton")
+SubmitBtn.Size = UDim2.new(0, 140, 0, 35)
+SubmitBtn.Position = UDim2.new(0, 25, 0, 140)
+SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 80)
+SubmitBtn.TextColor3 = Color3.new(1, 1, 1)
+SubmitBtn.Text = "ВОЙТИ"
+SubmitBtn.Font = Enum.Font.GothamBold
+SubmitBtn.TextSize = 14
+SubmitBtn.Parent = MainFrame
+Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 6)
+
+local GetKeyBtn = Instance.new("TextButton")
+GetKeyBtn.Size = UDim2.new(0, 140, 0, 35)
+GetKeyBtn.Position = UDim2.new(1, -165, 0, 140)
+GetKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+GetKeyBtn.TextColor3 = Color3.new(1, 1, 1)
+GetKeyBtn.Text = "ПОЛУЧИТЬ КОД"
+GetKeyBtn.Font = Enum.Font.GothamBold
+GetKeyBtn.TextSize = 14
+GetKeyBtn.Parent = MainFrame
+Instance.new("UICorner", GetKeyBtn).CornerRadius = UDim.new(0, 6)
+
+-- Динамическая проверка при вводе текста
+TextBox:GetPropertyChangedSignal("Text"):Connect(function()
+    local txt = TextBox.Text
+    if txt == "Betarelease67" then
+        StatusLabel.Text = "Доступ: Навсегда"
+        StatusLabel.TextColor3 = Color3.fromRGB(50, 255, 50)
+    elseif txt == "Semitest" then
+        StatusLabel.Text = "Доступ: 2 часа"
+        StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 50)
+    else
+        StatusLabel.Text = ""
+    end
+end)
+
+-- Кнопка получения кода
+GetKeyBtn.MouseButton1Click:Connect(function()
+    pcall(function()
+        setclipboard("https://t.me/+DatEf9N37eA3ZGY6")
+    end)
+    StatusLabel.Text = "Ссылка скопирована в буфер!"
+    StatusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
+end)
+
+-- Кнопка входа
+SubmitBtn.MouseButton1Click:Connect(function()
+    local input = TextBox.Text
+    if input == "Betarelease67" then
+        keyType = "lifetime"
+        isAuthenticated = true
+        KeyGui:Destroy()
+    elseif input == "Semitest" then
+        keyType = "temp"
+        isAuthenticated = true
+        KeyGui:Destroy()
+    else
+        StatusLabel.Text = "Неверный ключ!"
+        StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
+    end
+end)
+
+-- ОСТАНАВЛИВАЕМ СКРИПТ ПОКА НЕ ВВЕДЕН КЛЮЧ
+while not isAuthenticated do
+    task.wait(0.1)
+end
+
+-- ========================================================================
+-- [ ТАЙМЕР НАД МЕНЮ ЧИТА ]
+-- ========================================================================
+local TopGui = Instance.new("ScreenGui")
+TopGui.Name = "CheatTimerUI"
+TopGui.ResetOnSpawn = false
+local successTop = pcall(function() TopGui.Parent = CoreGui end)
+if not successTop then TopGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
+
+local TimerLabel = Instance.new("TextLabel")
+TimerLabel.Size = UDim2.new(0, 300, 0, 30)
+TimerLabel.Position = UDim2.new(0.5, -150, 0, 15) -- Посередине сверху
+TimerLabel.BackgroundTransparency = 1
+TimerLabel.TextColor3 = Color3.fromRGB(255, 0, 80)
+TimerLabel.Font = Enum.Font.GothamBold
+TimerLabel.TextSize = 18
+TimerLabel.TextStrokeTransparency = 0
+TimerLabel.Parent = TopGui
+
+if keyType == "lifetime" then
+    TimerLabel.Text = "навсегда лол:)"
+elseif keyType == "temp" then
+    local endTime = os.time() + 7200 -- 2 часа (7200 секунд)
+    
+    task.spawn(function()
+        while true do
+            local remaining = endTime - os.time()
+            
+            if remaining <= 0 then
+                LocalPlayer:Kick("ключ закончился!!!!")
+                break
+            end
+            
+            local hours = math.floor(remaining / 3600)
+            local mins = math.floor((remaining % 3600) / 60)
+            local secs = remaining % 60
+            
+            TimerLabel.Text = string.format("Таймер: %02d:%02d:%02d", hours, mins, secs)
+            task.wait(1)
+        end
+    end)
+end
+
+-- ДАЛЬШЕ ИДЕТ ТВОЙ ОСНОВНОЙ СКРИПТ
+-- local MY_CHEAT_TITLE = "PRIVATE EXTERNAL"
+-- local ACCENT_COLOR = Color3.fromRGB(255, 0, 80)
+-- ... и так далее ...
+local ACCENT_COLOR = Color3.fromRGB(255, 0, 80)
+
+local workspace = cloneref(game:GetService("Workspace"))
+local Players = cloneref(game:GetService("Players"))
+local RunService = cloneref(game:GetService("RunService"))
+local CollectionService = cloneref(game:GetService("CollectionService"))
+local Lighting = cloneref(game:GetService("Lighting"))
+local UserInputService = cloneref(game:GetService("UserInputService"))
+local Camera = workspace.CurrentCamera
+local LocalPlayer = Players.LocalPlayer
+local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
+
+local cheat = {
+    Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/some1strange/builds/refs/heads/main/LinoriaModded.lua'))(),
+    drawings = {},
+    connections = {}
+}
+
+local VisualSettings = { Morning = false, NoShadows = false }
+local CamVars = { Enabled = false, Height = 0, Current = 0 }
+local MorningLabel = Drawing.new("Text")
+MorningLabel.Text = "я утра падклучел"
+MorningLabel.Color = Color3.fromRGB(255, 0, 80)
+MorningLabel.Size = 25
+MorningLabel.Font = 3
+MorningLabel.Outline = true
+MorningLabel.Visible = false
+
+local Teammates = {}
+local team_feature_enabled = false
+
+cheat.utility = {}
+cheat.utility.new_drawing = function(drawobj, args)
+    local obj = Drawing.new(drawobj)
+    for i, v in pairs(args) do obj[i] = v end
+    cheat.drawings[obj] = obj
+    return obj
+end
+
+local EspLibrary = {
+    settings = {
+        enabled = false, box = false, box_color = { ACCENT_COLOR, 1 },
+        realname = false, realname_color = { Color3.new(1, 1, 1), 1 },
+        dist = false, dist_color = { Color3.new(1, 1, 1), 1 },
+        image_en = false, chams_enabled = false, chams_color = Color3.fromRGB(255, 0, 0),
+        chams_opacity = 0.5, hb_enabled = false, hb_size = 1, hb_transparency = 0, hb_collision = true
+    }
+}
+
+local window = cheat.Library:CreateWindow({ Title = MY_CHEAT_TITLE, Center = true, AutoShow = true, TabPadding = 8 })
+local combatTab = window:AddTab('пвпе с гандонам')
+local visualsTab = window:AddTab('еэээ вайзуал')
+local miscTab = window:AddTab('миск')
+
+local hitboxGroup = combatTab:AddLeftTabbox():AddTab("увилечет башка")
+local magicbulletGroup = combatTab:AddRightTabbox():AddTab("player redirection")
+local espGroup = visualsTab:AddLeftTabbox():AddTab("пидарас есп")
+local chamsGroup = visualsTab:AddRightTabbox():AddTab("чомс")
+local armorGroup = visualsTab:AddRightTabbox():AddTab("Armor ESP")
+local extraEspGroup = visualsTab:AddLeftTabbox():AddTab("Items & Weapons")
+local trailChamsGroup = visualsTab:AddLeftTabbox():AddTab("Trails & Chams")
+local waterGroup = visualsTab:AddRightTabbox():AddTab("Water Settings")
+local miscGroup = miscTab:AddLeftTabbox():AddTab("разное говно")
+local teamGroup = miscTab:AddRightTabbox():AddTab("тимейты")
+local randGroup = miscTab:AddRightTabbox():AddTab("рандом хит")
+
+local validcharacters, assignedNames, nameCounter = {}, {}, 1
+
+local function addtovc(obj)
+    if not obj then return end
+    if not obj:FindFirstChild("Head") and not obj:FindFirstChild("HumanoidRootPart") and not obj:FindFirstChild("LowerTorso") then return end
+    validcharacters[obj] = obj
+    if not assignedNames[obj] then
+        local currentId = nameCounter
+        nameCounter = nameCounter + 1
+        assignedNames[obj] = "Loading " .. tostring(currentId)
+        task.spawn(function()
+            task.wait(0.5)
+            if not obj or not obj.Parent then return end
+            assignedNames[obj] = "Player " .. tostring(currentId)
+        end)
+    end
+end
+
+local function removefromvc(obj)
+    if not validcharacters[obj] then return end
+    validcharacters[obj] = nil
+    assignedNames[obj] = nil
+end
+
+for _, v in pairs(workspace:GetChildren()) do addtovc(v) end
+workspace.ChildAdded:Connect(addtovc)
+workspace.ChildRemoved:Connect(removefromvc)
+
+teamGroup:AddToggle('team_enable', { Text = 'включить систему тимейтов', Default = false, Callback = function(v) team_feature_enabled = v end })
+local teamDropdown = teamGroup:AddDropdown('team_select', { Values = {"пусто"}, Default = 1, Multi = false, Text = 'выбор игрока' })
+
+teamGroup:AddButton('➕ добавить / удалить', function()
+    local sel = Options.team_select.Value
+    if sel and sel ~= "пусто" then
+        if Teammates[sel] then
+            Teammates[sel] = nil
+            cheat.Library:Notify("Удален из тимейтов: " .. sel)
+        else
+            Teammates[sel] = true
+            cheat.Library:Notify("Добавлен в тимейты: " .. sel)
+        end
+    end
+end)
+
+teamGroup:AddButton('🔄 обновить список', function()
+    local names = {}
+    for obj, _ in pairs(validcharacters) do
+        if obj ~= LocalPlayer.Character then table.insert(names, assignedNames[obj] or obj.Name) end
+    end
+    if #names == 0 then table.insert(names, "пусто") end
+    teamDropdown:SetValues(names)
+end)
+
+local function update_rand_label()
+    local h = Options.rand_Head and Options.rand_Head.Value or 33
+    local b = Options.rand_Body and Options.rand_Body.Value or 33
+    local m = Options.rand_Miss and Options.rand_Miss.Value or 34
+    local total = h + b + m
+    if total == 0 then m = 1; total = 1 end
+    local hp = math.floor((h / total) * 100)
+    local bp = math.floor((b / total) * 100)
+    local mp = 100 - hp - bp
+    if cheat.randLabel then cheat.randLabel:SetText(string.format("%d%% Голова - %d%% Тело - %d%% Промах", hp, bp, mp)) end
+    return hp, bp, mp
+end
+
+randGroup:AddToggle('rand_Hit_Enabled', { Text = 'включить рандом хит', Default = false })
+cheat.randLabel = randGroup:AddLabel('33% Голова - 33% Тело - 34% Промах')
+randGroup:AddSlider('rand_Head', { Text = 'Шанс головы', Default = 33, Min = 0, Max = 100, Rounding = 0, Callback = update_rand_label })
+randGroup:AddSlider('rand_Body', { Text = 'Шанс тела', Default = 33, Min = 0, Max = 100, Rounding = 0, Callback = update_rand_label })
+randGroup:AddSlider('rand_Miss', { Text = 'Шанс промаха', Default = 34, Min = 0, Max = 100, 
+Rounding = 0, Callback = update_rand_label })
+local freecamGroup = miscTab:AddLeftTabbox():AddTab("Free Camera")
+
+-- БЕЗОПАСНЫЙ ПОИСК GUI PARENT
+local guiParent
+local success = pcall(function()
+    guiParent = (gethui and gethui()) or game:GetService("CoreGui")
+end)
+if not success or not guiParent then
+    guiParent = LocalPlayer:WaitForChild("PlayerGui")
+end
+
+local TextGui = Instance.new("ScreenGui", guiParent)
+TextGui.Name = "SixSevenGui"
+local TextLabel67 = Instance.new("TextLabel", TextGui)
+TextLabel67.Text = "67"
+TextLabel67.Size = UDim2.new(0, 300, 0, 150)
+TextLabel67.Position = UDim2.new(0.5, -150, 0, 20)
+TextLabel67.BackgroundTransparency = 1
+TextLabel67.TextColor3 = Color3.fromRGB(64, 224, 208)
+TextLabel67.TextTransparency = 0.65
+TextLabel67.Font = Enum.Font.FredokaOne
+TextLabel67.TextScaled = true
+TextLabel67.Visible = false
+
+local CustomSky = Instance.new("Sky")
+CustomSky.Name = "GazanSky"
+CustomSky.SkyboxBk = "rbxassetid://136608045748073"
+CustomSky.SkyboxDn = "rbxassetid://136608045748073"
+CustomSky.SkyboxFt = "rbxassetid://136608045748073"
+CustomSky.SkyboxLf = "rbxassetid://136608045748073"
+CustomSky.SkyboxRt = "rbxassetid://136608045748073"
+CustomSky.SkyboxUp = "rbxassetid://136608045748073"
+local OriginalSky = nil
+
+espGroup:AddToggle('vis_Skybox', { Text = 'газанул 67 скайбокс', Default = false, Callback = function(v) 
+    if v then
+        OriginalSky = Lighting:FindFirstChildOfClass("Sky")
+        if OriginalSky then OriginalSky.Parent = nil end
+        CustomSky.Parent = Lighting
+    else
+        CustomSky.Parent = nil
+        if OriginalSky then OriginalSky.Parent = Lighting end
+    end
+end })
+
+espGroup:AddToggle('six_with_ded', { Text = 'сикс с дидам', Default = false, Callback = function(v) TextLabel67.Visible = v end })
+
+local function get_targets_in_fov(usefov, fov_size)
+    local e_part, e_pos, t_part, t_pos = nil, nil, nil, nil
+    local e_dist, t_dist = usefov and fov_size or math.huge, usefov and fov_size or math.huge
+    local center = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+    
+    for _, character in pairs(validcharacters) do
+        if not character or not character.Parent then continue end
+        
+        -- ИГНОРИРУЕМ МЕРТВЫХ ИГРОКОВ В АИМБОТЕ
+        local humanoid = character:FindFirstChild("Humanoid") or character:FindFirstChildWhichIsA("Humanoid")
+        if humanoid and humanoid.Health <= 0 then continue end
+
+        local hitpart = character:FindFirstChild("LowerTorso") or character:FindFirstChild("HumanoidRootPart")
+        if hitpart then
+            local pos, onscreen = Camera:WorldToViewportPoint(hitpart.Position)
+            local dist = (Vector2.new(pos.X, pos.Y) - center).Magnitude
+            if (usefov and onscreen or not usefov) and dist < (usefov and fov_size or math.huge) then
+                local customName = assignedNames[character] or character.Name
+                if team_feature_enabled and Teammates[customName] then
+                    if dist < t_dist then t_part = hitpart; t_dist = dist; t_pos = Vector2.new(pos.X, pos.Y) end
+                else
+                    if dist < e_dist then e_part = hitpart; e_dist = dist; e_pos = Vector2.new(pos.X, pos.Y) end
+                end
+            end
+        end
+    end
+    return e_part, e_pos, t_part, t_pos
+end
+
+local domagic, snapline = false, false
+local fov, fov_show, fov_color, fov_outline, fov_size, fov_neon = false, false, Color3.new(1, 1, 1), false, 100, true
+
+local CircleOutline = cheat.utility.new_drawing("Circle", { Thickness = 4, Color = Color3.new(), ZIndex = 1, Filled = false })
+local CircleInline = cheat.utility.new_drawing("Circle", { Transparency = 1, Thickness = 1.5, ZIndex = 2, Filled = false })
+local snaplinedrawing = cheat.utility.new_drawing("Line", { Transparency = 1, Thickness = 1, ZIndex = 1, Color = Color3.new(1, 1, 1), Visible = false })
+local teamsnaplinedrawing = cheat.utility.new_drawing("Line", { Transparency = 1, Thickness = 1.5, ZIndex = 1, Color = Color3.fromRGB(0, 255, 0), Visible = false })
+
+local function update_fov()
+    CircleInline.Radius = fov_size; CircleInline.Visible = fov and fov_show
+    CircleOutline.Radius = fov_size; CircleOutline.Visible = (fov and fov_show and fov_outline)
+end
+
+magicbulletGroup:AddToggle('aimbot_ultraexploit',{Text = 'player redirection',Default = false,Callback = function(v) domagic = v end}):AddKeyPicker('aimbot_ultraexploit_bind', {Default = 'None',SyncToggleState = true,Mode = 'Toggle',Text = 'player redirection',NoUI = false})
+magicbulletGroup:AddToggle('aimbot_ultraexploit_snapline', {Text = 'snapline to target',Default = false,Callback = function(Value) snapline = Value end})
+magicbulletGroup:AddToggle('aimbot_fov', {Text = 'use fov',Default = false,Callback = function(Value) fov = Value; update_fov() end})
+
+local Depbox1 = magicbulletGroup:AddDependencyBox()
+Depbox1:AddToggle('aimbot_fov_show', {Text = 'show fov',Default = false,Callback = function(Value) fov_show = Value; update_fov() end}):AddColorPicker('aimbot_fov_color',{Default = Color3.new(1, 1, 1),Title = 'fov color',Transparency = 0,Callback = function(Value) fov_color = Value; update_fov() end})
+Depbox1:AddToggle('aimbot_fov_outline', {Text = 'fov outline',Default = false,Callback = function(Value) fov_outline = Value; update_fov() end})
+Depbox1:AddToggle('aimbot_fov_neon', {Text = 'неон перелив (neon)',Default = true,Callback = function(Value) fov_neon = Value end})
+Depbox1:AddSlider('aimbot_fov_size',{Text = 'target fov',Default = 100,Min = 10,Max = 1000,Rounding = 0,Compact = true,Callback = function(State) fov_size = State; update_fov() end})
+
+local target, e_spos, t_target, t_spos, cachedtarget;
+RunService.RenderStepped:Connect(function()
+    local center = Vector2.new(Camera.ViewportSize.X / 2, Camera.ViewportSize.Y / 2)
+    target, e_spos, t_target, t_spos = get_targets_in_fov(fov, fov_size)
+    
+    if snapline then
+        if e_spos then snaplinedrawing.Visible = true; snaplinedrawing.From = center; snaplinedrawing.To = e_spos else snaplinedrawing.Visible = false end
+        if t_spos then teamsnaplinedrawing.Visible = true; teamsnaplinedrawing.From = center; teamsnaplinedrawing.To = t_spos else teamsnaplinedrawing.Visible = false end
+    else
+        snaplinedrawing.Visible = false; teamsnaplinedrawing.Visible = false
+    end
+    
+    CircleOutline.Position = center; CircleInline.Position = center
+    if fov and fov_show then
+        if fov_neon then
+            CircleInline.NumSides = 16; CircleOutline.NumSides = 16
+            local hue = (tick() % 3) / 3
+            local neonColor = Color3.fromHSV(hue, 0.8, 1)
+            CircleInline.Color = neonColor
+            if fov_outline then CircleOutline.Color = neonColor; CircleOutline.Transparency = 0.3 + math.abs(math.sin(tick() * 3)) * 0.4 end
+        else
+            CircleInline.NumSides = 64; CircleOutline.NumSides = 64
+            CircleInline.Color = fov_color
+            if fov_outline then CircleOutline.Color = Color3.new(0, 0, 0); CircleOutline.Transparency = 1 end
+        end
+    end
+end)
+
+local function add_whiz(obj)
+    if not obj or not obj:FindFirstChild("whiz") or not domagic then return end
+    local confirmed = false
+    local hit_type = "body"
+    if Toggles.rand_Hit_Enabled and Toggles.rand_Hit_Enabled.Value then
+        local hp, bp, mp = update_rand_label()
+        local roll = math.random(1, 100)
+        if roll <= hp then hit_type = "head" elseif roll <= hp + bp then hit_type = "body" else hit_type = "miss" end
+    end
+
+    obj:GetPropertyChangedSignal("CFrame"):Connect(function()
+        if not confirmed and (Camera.CFrame.Position - obj.CFrame.Position).Magnitude < 1 then confirmed = true end
+        if confirmed and (cachedtarget or target) then
+            if not cachedtarget then cachedtarget = target end
+            if hit_type == "miss" then return end
+            local bulletpos = obj.CFrame.Position
+            local char = cachedtarget.Parent
+            if char and char.PrimaryPart then
+                local root = char.PrimaryPart
+                local head = char:FindFirstChild("Head")
+                local torso = char:FindFirstChild("LowerTorso") or char:FindFirstChild("Torso") or root
+                local target_part = (hit_type == "head") and head or torso
+                if root and target_part then
+                    local offset_x = root.Position.X - target_part.Position.X
+                    local offset_z = root.Position.Z - target_part.Position.Z
+                    root.CFrame = CFrame.new(Vector3.new(bulletpos.X + offset_x, cachedtarget.Position.Y, bulletpos.Z + offset_z))
+                end
+            end
+        end
+    end)
+    local hbConnection
+    hbConnection = RunService.Heartbeat:Connect(function()
+        if not obj or not obj.Parent then cachedtarget = false; if hbConnection then hbConnection:Disconnect() end end
+    end)
+end
+
+task.spawn(function()
+    local const = workspace:WaitForChild("Const", 5)
+    if const then
+        local ignore = const:WaitForChild("Ignore", 5)
+        if ignore then ignore.ChildAdded:Connect(add_whiz) end
+    end
+end)
+
+local function applyChams(model)
+    if model == LocalPlayer.Character then return end
+    if model:IsA("Model") and model:FindFirstChild("HumanoidRootPart") then
+        local highlight = model:FindFirstChild("UniversalCham") or Instance.new("Highlight", model)
+        highlight.Name = "UniversalCham"
+        highlight.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+        highlight.Enabled = false
+        highlight.FillColor = EspLibrary.settings.chams_color
+        highlight.FillTransparency = 1 - EspLibrary.settings.chams_opacity
+        highlight.OutlineTransparency = 0
+    end
+end
+
+local function create_esp(model)
+    if model == LocalPlayer.Character then return end
+    
+    task.spawn(function()
+        task.wait(0.5) -- Ждем пока игрок полностью прогрузится
+        if not model or not model.Parent then return end
+        
+        applyChams(model)
+        
+        local head = model:FindFirstChild("Head")
+        local hrp = model:FindFirstChild("HumanoidRootPart")
+        local humanoid = model:FindFirstChild("Humanoid") or model:FindFirstChildWhichIsA("Humanoid")
+
+        if head and hrp then
+            local imgGui = Instance.new("BillboardGui", head)
+            imgGui.Name = "PlayerMemeImage"
+            imgGui.Size = UDim2.new(4, 0, 4, 0)
+            imgGui.AlwaysOnTop = true
+            imgGui.StudsOffset = Vector3.new(0, 3.5, 0)
+            local imgLabel = Instance.new("ImageLabel", imgGui)
+            imgLabel.Size = UDim2.new(1, 0, 1, 0)
+            imgLabel.BackgroundTransparency = 1
+            imgLabel.Image = "rbxassetid://114132252876567"
+
+            local obj = {
+                box = cheat.utility.new_drawing("Square", { Filled = false, Thickness = 1, Visible = false }),
+                name = cheat.utility.new_drawing("Text", { Center = true, Visible = false, Size = 13, Outline = true, Font = 2 }),
+                dist = cheat.utility.new_drawing("Text", { Center = true, Visible = false, Size = 13, Outline = true, Font = 2 }),
+                team_text = cheat.utility.new_drawing("Text", { Center = true, Visible = false, Text = "ТИМЕЙТ!!", Color = Color3.fromRGB(0, 255, 0), Font = 2, Size = 13, Outline = true })
+            }
+
+            local connection
+            connection = RunService.RenderStepped:Connect(function()
+                -- ПРОВЕРКА НА СМЕРТЬ ИЛИ ВЫХОД ИГРОКА (УДАЛЕНИЕ ПРИЗРАКОВ)
+                if not model or not model.Parent or not head or not head.Parent or (humanoid and humanoid.Health <= 0) then
+                    for _, o in pairs(obj) do 
+                        o.Visible = false
+                        o:Remove() -- Полностью стираем рисунки из памяти
+                    end
+                    if imgGui then imgGui:Destroy() end
+                    local highlight = model:FindFirstChild("UniversalCham")
+                    if highlight then highlight:Destroy() end
+                    
+                    if connection then connection:Disconnect() end
+                    return
+                end
+
+                -- ПРОВЕРКА ДИСТАНЦИИ (МАКСИМУМ 1200)
+                local distance = (Camera.CFrame.Position - head.Position).Magnitude
+                local inRange = distance <= 1200
+
+                if EspLibrary.settings.hb_enabled then
+                    head.Size = Vector3.new(2 * EspLibrary.settings.hb_size, 2 * EspLibrary.settings.hb_size, 2 * EspLibrary.settings.hb_size)
+                    head.Transparency = EspLibrary.settings.hb_transparency
+                    head.CanCollide = EspLibrary.settings.hb_collision
+                else
+                    head.Size = Vector3.new(2, 1, 1)
+                    head.Transparency = 0
+                    head.CanCollide = true
+                end
+                
+                if imgGui then imgGui.Enabled = EspLibrary.settings.enabled and EspLibrary.settings.image_en and inRange end
+
+                local highlight = model:FindFirstChild("UniversalCham")
+                if highlight then
+                    highlight.Enabled = EspLibrary.settings.chams_enabled and inRange
+                    highlight.FillColor = EspLibrary.settings.chams_color
+                    highlight.FillTransparency = 1 - EspLibrary.settings.chams_opacity
+                end
+
+                if not EspLibrary.settings.enabled or not inRange then 
+                    for _, o in pairs(obj) do o.Visible = false end
+                    return 
+                end
+
+                local screenPos, onScreen = Camera:WorldToViewportPoint(head.Position)
+                if onScreen then
+                    local customName = assignedNames[model] or model.Name
+                    local is_team = team_feature_enabled and Teammates[customName]
+
+                    obj.box.Visible = EspLibrary.settings.box
+                    obj.box.Size = Vector2.new(2000 / screenPos.Z, 2500 / screenPos.Z)
+                    obj.box.Position = Vector2.new(screenPos.X - obj.box.Size.X / 2, screenPos.Y - obj.box.Size.Y / 2)
+                    obj.box.Color = EspLibrary.settings.box_color[1]
+                    
+                    obj.name.Visible = EspLibrary.settings.realname
+                    obj.name.Text = customName
+                    obj.name.Position = obj.box.Position - Vector2.new(0, 15)
+                    obj.name.Color = EspLibrary.settings.realname_color[1]
+                    
+                    obj.dist.Visible = EspLibrary.settings.dist
+                    obj.dist.Text = math.floor(distance) .. "m"
+                    obj.dist.Position = obj.box.Position + Vector2.new(obj.box.Size.X / 2, obj.box.Size.Y + 2)
+                    obj.dist.Color = EspLibrary.settings.dist_color[1]
+
+                    if is_team then
+                        obj.team_text.Visible = true
+                        obj.team_text.Position = obj.name.Visible and (obj.name.Position - Vector2.new(0, 15)) or (obj.box.Position - Vector2.new(0, 15))
+                        obj.team_text.Transparency = 0.4 + math.abs(math.sin(tick() * 6)) * 0.6
+                    else
+                        obj.team_text.Visible = false
+                    end
+                else
+                    for _, o in pairs(obj) do o.Visible = false end
+                end
+            end)
+        end
+    end)
+end
+
+for _, v in pairs(workspace:GetChildren()) do create_esp(v) end
+workspace.ChildAdded:Connect(create_esp)
+
+hitboxGroup:AddToggle('hb_en', { Text = 'включетт', Default = false, Callback = function(v) EspLibrary.settings.hb_enabled = v end })
+hitboxGroup:AddSlider('hb_sz', { Text = 'размеп галави', Default = 1, Min = 1, Max = 10, Rounding = 1, Callback = function(v) EspLibrary.settings.hb_size = v end })
+hitboxGroup:AddSlider('hb_tr', { Text = 'насколька можна увидет', Default = 0, Min = 0, Max = 1, Rounding = 1, Callback = function(v) EspLibrary.settings.hb_transparency = v end })
+hitboxGroup:AddToggle('hb_col', { Text = 'вход в башка', Default = true, Callback = function(v) EspLibrary.settings.hb_collision = v end })
+
+espGroup:AddToggle('esp_master', { Text = 'включетт', Default = false, Callback = function(v) EspLibrary.settings.enabled = v end })
+espGroup:AddToggle('esp_box', { Text = 'аэээ ящек', Default = false, Callback = function(v) EspLibrary.settings.box = v end }):AddColorPicker('box_col', { Default = ACCENT_COLOR, Callback = function(v) EspLibrary.settings.box_color[1] = v end })
+espGroup:AddToggle('esp_name', { Text = 'нодпесь', Default = false, Callback = function(v) EspLibrary.settings.realname = v end })
+espGroup:AddToggle('esp_dist', { Text = 'насколька долеко', Default = false, Callback = function(v) EspLibrary.settings.dist = v end })
+espGroup:AddToggle('esp_image_en', { Text = 'Картинка над игроком', Default = false, Callback = function(v) EspLibrary.settings.image_en = v end })
+
+espGroup:AddToggle('morning_en', { Text = 'утра сьагодна', Default = false, Callback = function(v) VisualSettings.Morning = v end })
+espGroup:AddToggle('noshadows_en', { Text = 'тени пайдут нохуй', Default = false, Callback = function(v) VisualSettings.NoShadows = v end })
+
+chamsGroup:AddToggle('chams_enable', { Text = 'включить чомс', Default = false, Callback = function(v) EspLibrary.settings.chams_enabled = v end }):AddColorPicker('chams_col', { Default = Color3.fromRGB(255, 0, 0), Callback = function(v) EspLibrary.settings.chams_color = v end })
+chamsGroup:AddSlider('chams_alpha', { Text = 'Яркость чомса', Default = 0.5, Min = 0, Max = 1, Rounding = 1, Callback = function(v) EspLibrary.settings.chams_opacity = v end })
+
+miscGroup:AddToggle('cam_active', { Text = 'включить подъем', Default = false, Callback = function(v) CamVars.Enabled = v end })
+miscGroup:AddSlider('cam_h', { Text = 'тягучая штука висоти', Default = 0, Min = 0, Max = 250, Rounding = 1, Callback = function(v) CamVars.Height = v end })
+
+local bgMusic = Instance.new("Sound", game:GetService("CoreGui"))
+bgMusic.Name = "UnhappyS0rrow"
+bgMusic.SoundId = "rbxassetid://88523902860927"
+bgMusic.Looped = true
+bgMusic.Volume = 1
+
+miscGroup:AddToggle('play_music', { Text = 'мьюзика (Unhappy s0rrow)', Default = false, Callback = function(v) if v then bgMusic:Play() else bgMusic:Stop() end end })
+
+local MemeUI = Instance.new("ScreenGui", guiParent)
+MemeUI.Name = "MemeWatermark"
+MemeUI.Enabled = false
+local MemeImage = Instance.new("ImageLabel", MemeUI)
+MemeImage.Size = UDim2.new(0, 250, 0, 250)
+MemeImage.Position = UDim2.new(1, -260, 1, -260)
+MemeImage.BackgroundTransparency = 1
+MemeImage.Image = "rbxassetid://93764948090597"
+
+miscGroup:AddToggle('ui_meme_img', { Text = 'Картинка на экране', Default = false, Callback = function(v) MemeUI.Enabled = v end })
+
+-- ========================================================================
+-- [ КАСТОМНЫЙ ЧАТ ВНУТРИ СКРИПТА (ОБХОД БЛОКИРОВКИ ИГРЫ) ]
+-- ========================================================================
+local ChatGui = Instance.new("ScreenGui", guiParent)
+ChatGui.Name = "CustomCheatChat"
+ChatGui.Enabled = true
+ChatGui.ResetOnSpawn = false
+
+local ChatFrame = Instance.new("Frame", ChatGui)
+ChatFrame.Size = UDim2.new(0, 450, 0, 350)
+ChatFrame.Position = UDim2.new(0.5, -225, 0.5, -175)
+ChatFrame.BackgroundColor3 = Color3.fromRGB(30, 20, 30)
+ChatFrame.BackgroundTransparency = 0.2
+ChatFrame.BorderSizePixel = 0
+ChatFrame.Active = true
+ChatFrame.Draggable = true
+Instance.new("UICorner", ChatFrame).CornerRadius = UDim.new(0, 12)
+local stroke = Instance.new("UIStroke", ChatFrame)
+stroke.Color = Color3.fromRGB(255, 182, 193)
+stroke.Thickness = 1.5
+stroke.Transparency = 0.3
+
+local Topbar = Instance.new("Frame", ChatFrame)
+Topbar.Size = UDim2.new(1, 0, 0, 40)
+Topbar.BackgroundTransparency = 1
+
+local Title = Instance.new("TextLabel", Topbar)
+Title.Size = UDim2.new(1, -40, 1, 0)
+Title.Position = UDim2.new(0, 15, 0, 0)
+Title.BackgroundTransparency = 1
+Title.Text = "🌸 Нежный Чат (Обход) 🌸"
+Title.TextColor3 = Color3.fromRGB(255, 182, 193)
+Title.TextXAlignment = Enum.TextXAlignment.Left
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 16
+
+local CloseBtn = Instance.new("TextButton", Topbar)
+CloseBtn.Size = UDim2.new(0, 40, 1, 0)
+CloseBtn.Position = UDim2.new(1, -40, 0, 0)
+CloseBtn.BackgroundTransparency = 1
+CloseBtn.Text = "✖"
+CloseBtn.TextColor3 = Color3.fromRGB(255, 182, 193)
+CloseBtn.Font = Enum.Font.GothamBold
+CloseBtn.TextSize = 18
+
+local Scroll = Instance.new("ScrollingFrame", ChatFrame)
+Scroll.Size = UDim2.new(1, -20, 1, -90)
+Scroll.Position = UDim2.new(0, 10, 0, 40)
+Scroll.BackgroundTransparency = 1
+Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+Scroll.ScrollBarThickness = 3
+Scroll.ScrollBarImageColor3 = Color3.fromRGB(255, 182, 193)
+Scroll.AutomaticCanvasSize = Enum.AutomaticSize.None
+        
+local UIListLayout = Instance.new("UIListLayout", Scroll)
+UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+UIListLayout.Padding = UDim.new(0, 6)
+
+local InputBox = Instance.new("TextBox", ChatFrame)
+InputBox.Size = UDim2.new(1, -20, 0, 35)
+InputBox.Position = UDim2.new(0, 10, 1, -45)
+InputBox.BackgroundColor3 = Color3.fromRGB(45, 35, 45)
+InputBox.BackgroundTransparency = 0.4
+InputBox.TextColor3 = Color3.new(1, 1, 1)
+InputBox.PlaceholderText = " Напиши что-нибудь милое..."
+InputBox.PlaceholderColor3 = Color3.fromRGB(180, 150, 180)
+InputBox.TextXAlignment = Enum.TextXAlignment.Left
+InputBox.Font = Enum.Font.Gotham
+InputBox.TextSize = 14
+InputBox.ClearTextOnFocus = false
+Instance.new("UICorner", InputBox).CornerRadius = UDim.new(0, 8)
+local inStroke = Instance.new("UIStroke", InputBox)
+inStroke.Color = Color3.fromRGB(255, 182, 193)
+inStroke.Thickness = 1
+inStroke.Transparency = 0.6
+
+local newMessagesCount = 0
+local recentMessages = {}
+local systemMessages = {}
+
+local function addChatMessage(sender, text, isSystem)
+    local msgLabel = Instance.new("TextLabel", Scroll)
+    msgLabel.Size = UDim2.new(1, -10, 0, 0)
+    msgLabel.AutomaticSize = Enum.AutomaticSize.Y
+    msgLabel.BackgroundTransparency = 1
+    msgLabel.TextWrapped = true
+    msgLabel.TextXAlignment = Enum.TextXAlignment.Left
+    msgLabel.TextYAlignment = Enum.TextYAlignment.Top
+    msgLabel.Font = Enum.Font.Gotham
+    msgLabel.TextSize = 14
+    msgLabel.RichText = true
+            
+    local hexColor = isSystem and "#98FB98" or "#DDA0DD"
+    local prefix = isSystem and "[Система]" or "[" .. sender .. "]"
+            
+    local safeText = text:gsub("<", "&lt;"):gsub(">", "&gt;")
+    msgLabel.Text = string.format('<b><font color="%s">%s:</font></b> <font color="#F0F0F0">%s</font>', hexColor, prefix, safeText)
+end
+
+UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+    Scroll.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
+    Scroll.CanvasPosition = Vector2.new(0, Scroll.CanvasSize.Y.Offset)
+end)
+
+CloseBtn.MouseButton1Click:Connect(function() ChatGui.Enabled = false end)
+
+local function sendChatMessage(text)
+    pcall(function()
+        game:GetService("Players"):Chat(text)
+    end)
+end
+
+local function handleIncomingMessage(sender, text)
+    if systemMessages[text] and sender ~= "Система" then return end
+
+    local msgId = sender .. "_" .. text
+    if recentMessages[msgId] then return end
+    recentMessages[msgId] = true
+    task.delay(0.5, function() recentMessages[msgId] = nil end)
+
+    addChatMessage(sender, text, sender == "Система")
+    if not ChatGui.Enabled then
+        newMessagesCount = newMessagesCount + 1
+    end
+end
+
+InputBox.FocusLost:Connect(function(enterPressed)
+    if enterPressed and InputBox.Text ~= "" then
+        local msg = InputBox.Text
+        InputBox.Text = ""
+        sendChatMessage(msg)
+        handleIncomingMessage(LocalPlayer.Name, msg)
+    end
+end)
+
+for _, p in pairs(Players:GetPlayers()) do
+    p.Chatted:Connect(function(msg) handleIncomingMessage(p.Name, msg) end)
+end
+Players.PlayerAdded:Connect(function(p)
+    p.Chatted:Connect(function(msg) handleIncomingMessage(p.Name, msg) end)
+end)
+
+task.spawn(function()
+    while task.wait(120) do
+        if newMessagesCount > 0 then
+            cheat.Library:Notify("Новые сообщения в чате! 🌸")
+            newMessagesCount = 0
+        end
+    end
+end)
+
+miscGroup:AddButton('открыть чат', function()
+    ChatGui.Enabled = true
+    newMessagesCount = 0
+end)
+
+task.spawn(function()
+    if not LocalPlayer.Character then LocalPlayer.CharacterAdded:Wait() end
+    task.wait(3)
+    local sysMsg = string.format("Система-игрок(%s) заинжектил чит! На этом сервере))", LocalPlayer.Name)
+    systemMessages[sysMsg] = true
+    sendChatMessage(sysMsg)
+    handleIncomingMessage("Система", sysMsg)
+end)
+
+RunService:BindToRenderStep("OnlyUpCamera", Enum.RenderPriority.Camera.Value + 1, function()
+    local target = (CamVars.Enabled) and CamVars.Height or 0
+    CamVars.Current = CamVars.Current + (target - CamVars.Current) * 0.05
+    if math.abs(CamVars.Current) > 0.001 then
+        Camera.CFrame = Camera.CFrame * CFrame.new(0, CamVars.Current, 0)
+    end
+end)
+
+RunService.Heartbeat:Connect(function()
+    if VisualSettings.Morning then
+        if Lighting.ClockTime > 18 or Lighting.ClockTime < 6 then
+            Lighting.ClockTime = 9
+            MorningLabel.Visible = true
+            MorningLabel.Position = Vector2.new(Camera.ViewportSize.X - 220, 60)
+        else MorningLabel.Visible = false end
+    else MorningLabel.Visible = false end
+
+    if VisualSettings.NoShadows then
+        Lighting.GlobalShadows = false
+        Lighting.Ambient = Color3.fromRGB(255, 255, 255)
+    else
+        Lighting.GlobalShadows = true
+    end
+end)
+
+local worldEspBox = visualsTab:AddRightTabbox()
+local worldTab = worldEspBox:AddTab("World ESP (Лут)")
+
+worldTab:AddToggle('bags_en', { Text = 'Bags (Chams)', Default = false })
+worldTab:AddToggle('bags_box', { Text = 'Show Box', Default = false })
+worldTab:AddToggle('bags_name', { Text = 'Show Name', Default = false })
+worldTab:AddToggle('bags_dist', { Text = 'Show Distance', Default = false })
+worldTab:AddToggle('bags_rainbow', { Text = 'Rainbow Mode', Default = false }):AddColorPicker('bags_color', { Default = Color3.fromRGB(0, 255, 255) })
+worldTab:AddSlider('bags_trans', { Text = 'Opacity', Default = 99, Min = 0, Max = 100, Rounding = 0 })
+
+worldTab:AddToggle('crates_en', { Text = 'Crates (Chams)', Default = false })
+worldTab:AddToggle('crates_box', { Text = 'Show Box', Default = false })
+worldTab:AddToggle('crates_name', { Text = 'Show Name', Default = false })
+worldTab:AddToggle('crates_dist', { Text = 'Show Distance', Default = false })
+worldTab:AddToggle('crates_rainbow', { Text = 'Rainbow Mode', Default = false }):AddColorPicker('crates_color', { Default = Color3.fromRGB(0, 255, 127) })
+worldTab:AddSlider('crates_trans', { Text = 'Opacity', Default = 50, Min = 0, Max = 100, Rounding = 0 })
+
+local activeBags, activeCrates, MAX_RENDER_DISTANCE = {}, {}, 1200
+local ChamStorage = guiParent:FindFirstChild("TridentVisuals") or Instance.new("Folder", guiParent)
+ChamStorage.Name = "TridentVisuals"
+
+local function createDrawings()
+    return {
+        box = cheat.utility.new_drawing("Square", { Filled = false, Thickness = 1, Visible = false }),
+        name = cheat.utility.new_drawing("Text", { Center = true, Visible = false, Size = 13, Outline = true, Font = 2 }),
+        dist = cheat.utility.new_drawing("Text", { Center = true, Visible = false, Size = 11, Outline = true, Font = 2 })
+    }
+end
+
+local function applyWorldESP(model)
+    if typeof(model) ~= "Instance" or not model:IsA("Model") then return end
+
+    if model.Name == "Model" and #model:GetChildren() == 2 and model:FindFirstChild("Part") then
+        local p1 = model:FindFirstChild("Part")
+        if p1:IsA("BasePart") and p1.Size.Y < 3 and p1.Size.X < 3 and p1.Size.Z < 3 then
+            local id = "Bag_" .. model:GetDebugId()
+            local hl = ChamStorage:FindFirstChild(id) or Instance.new("Highlight", ChamStorage)
+            hl.Name = id; hl.Adornee = model; hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+            activeBags[model] = { highlight = hl, drawings = createDrawings(), part = p1, name = "мешок" }
+        end
+    end
+    
+    if not model.Name:find("InteriorContainer") and not model:FindFirstChild("State") then
+        local children = {}
+        for _, child in pairs(model:GetChildren()) do children[child.Name] = true end
+        local isCrate, memeName = false, ""
+
+        if children['Bottom'] and children['Top'] then isCrate = true; memeName = "йощек абични"
+        elseif children['box'] and children['trash'] then isCrate = true; memeName = "мусор"
+        elseif children['Dispenser'] and children['Machine'] then isCrate = true; memeName = "автомат с хилкай"
+        elseif children['Body'] and children['Wheel'] then isCrate = true; memeName = "телега с лутом"
+        elseif model.Name == "CashRegister" or model.Name == "Register" then isCrate = true; memeName = "каса"
+        elseif model.Name == "Safe" then isCrate = true; memeName = "сейф ебать" end
+
+        if model:FindFirstChild("Humanoid") then isCrate = false end
+
+        if isCrate then
+            local id = "Crate_" .. model:GetDebugId()
+            local hl = ChamStorage:FindFirstChild(id) or Instance.new("Highlight", ChamStorage)
+            hl.Name = id; hl.Adornee = model; hl.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+            activeCrates[model] = { highlight = hl, drawings = createDrawings(), part = model.PrimaryPart or model:FindFirstChildWhichIsA("BasePart"), name = memeName }
+        end
+    end
+end
+
+for _, obj in ipairs(workspace:GetDescendants()) do applyWorldESP(obj) end
+workspace.DescendantAdded:Connect(function(desc) task.wait(0.1); applyWorldESP(desc) end)
+workspace.DescendantRemoving:Connect(function(obj)
+    if activeBags[obj] then activeBags[obj].highlight:Destroy(); for _, d in pairs(activeBags[obj].drawings) do d:Remove() end; activeBags[obj] = nil end
+    if activeCrates[obj] then activeCrates[obj].highlight:Destroy(); for _, d in pairs(activeCrates[obj].drawings) do d:Remove() end; activeCrates[obj] = nil end
+end)
+
+local rainbowHueWorld = 0
+RunService.RenderStepped:Connect(function(dt)
+    rainbowHueWorld = (rainbowHueWorld + dt * 0.2) % 1
+    local rainbowColor = Color3.fromHSV(rainbowHueWorld, 1, 1)
+
+    for model, data in pairs(activeBags) do
+        if not model or not model.Parent or not data.part or not data.part.Parent then continue end
+        local dist = (Camera.CFrame.Position - data.part.Position).Magnitude
+        local inRange = dist <= MAX_RENDER_DISTANCE
+        local pos, onScreen = Camera:WorldToViewportPoint(data.part.Position)
+        local color = (Toggles.bags_rainbow.Value) and rainbowColor or Options.bags_color.Value
+
+        if Toggles.bags_en.Value and inRange then
+            data.highlight.Enabled = true; data.highlight.FillColor = color; data.highlight.OutlineColor = color
+            data.highlight.FillTransparency = 1 - (Options.bags_trans.Value / 100); data.highlight.OutlineTransparency = 1 - (Options.bags_trans.Value / 100)
+        else data.highlight.Enabled = false end
+
+        if onScreen and inRange and (Toggles.bags_box.Value or Toggles.bags_name.Value or Toggles.bags_dist.Value) then
+            data.drawings.box.Visible = Toggles.bags_box.Value
+            data.drawings.box.Size = Vector2.new(1500 / pos.Z, 1500 / pos.Z)
+            data.drawings.box.Position = Vector2.new(pos.X - data.drawings.box.Size.X / 2, pos.Y - data.drawings.box.Size.Y / 2)
+            data.drawings.box.Color = color
+
+            data.drawings.name.Visible = Toggles.bags_name.Value
+            data.drawings.name.Text = data.name
+            data.drawings.name.Position = data.drawings.box.Position - Vector2.new(0, 15)
+            data.drawings.name.Color = color
+
+            data.drawings.dist.Visible = Toggles.bags_dist.Value
+            data.drawings.dist.Text = math.floor(dist) .. "m"
+            data.drawings.dist.Position = data.drawings.box.Position + Vector2.new(data.drawings.box.Size.X / 2, data.drawings.box.Size.Y + 2)
+            data.drawings.dist.Color = color
+        else
+            for _, d in pairs(data.drawings) do d.Visible = false end
+        end
+    end
+    
+    for model, data in pairs(activeCrates) do
+        if not model or not model.Parent or not data.part or not data.part.Parent then continue end
+        local dist = (Camera.CFrame.Position - data.part.Position).Magnitude
+        local inRange = dist <= MAX_RENDER_DISTANCE
+        local pos, onScreen = Camera:WorldToViewportPoint(data.part.Position)
+        local color = (Toggles.crates_rainbow.Value) and rainbowColor or Options.crates_color.Value
+
+        if Toggles.crates_en.Value and inRange then
+            data.highlight.Enabled = true; data.highlight.FillColor = color; data.highlight.OutlineColor = color
+            data.highlight.FillTransparency = 1 - (Options.crates_trans.Value / 100); data.highlight.OutlineTransparency = 1 - (Options.crates_trans.Value / 100)
+        else data.highlight.Enabled = false end
+
+        if onScreen and inRange and (Toggles.crates_box.Value or Toggles.crates_name.Value or Toggles.crates_dist.Value) then
+            data.drawings.box.Visible = Toggles.crates_box.Value
+            data.drawings.box.Size = Vector2.new(2500 / pos.Z, 2500 / pos.Z)
+            data.drawings.box.Position = Vector2.new(pos.X - data.drawings.box.Size.X / 2, pos.Y - data.drawings.box.Size.Y / 2)
+            data.drawings.box.Color = color
+
+            data.drawings.name.Visible = Toggles.crates_name.Value
+            data.drawings.name.Text = data.name
+            data.drawings.name.Position = data.drawings.box.Position - Vector2.new(0, 15)
+            data.drawings.name.Color = color
+
+            data.drawings.dist.Visible = Toggles.crates_dist.Value
+            data.drawings.dist.Text = math.floor(dist) .. "m"
+            data.drawings.dist.Position = data.drawings.box.Position + Vector2.new(data.drawings.box.Size.X / 2, data.drawings.box.Size.Y + 2)
+            data.drawings.dist.Color = color
+        else
+            for _, d in pairs(data.drawings) do d.Visible = false end
+        end
+    end
+end)
+-- ========================================================================
+-- [ ARMOR ESP ]
+-- ========================================================================
+local localPlayer = LocalPlayer
+local camera = Camera
+local ArmorTab = armorGroup
+
+-- Создание кастомного UI для отображения брони на экране
+local G2L = {}
+G2L["1"] = Instance.new("ScreenGui", localPlayer:WaitForChild("PlayerGui"))
+G2L["1"].ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+G2L["1"].Name = "ArmorGUI_Main"
+
+G2L["2"] = Instance.new("Frame", G2L["1"])
+G2L["2"].ZIndex = -8
+G2L["2"].BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+G2L["2"].Size = UDim2.new(0, 786, 0, 77)
+G2L["2"].Position = UDim2.new(0.3, 1, 0, -30)
+G2L["2"].BorderColor3 = Color3.fromRGB(11, 11, 11)
+G2L["2"].Name = "Armor"
+G2L["2"].BackgroundTransparency = 1
+
+G2L["4"] = Instance.new("TextLabel", G2L["2"])
+G2L["4"].ZIndex = 3
+G2L["4"].BorderSizePixel = 0
+G2L["4"].TextSize = 20
+G2L["4"].BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+G2L["4"].FontFace = Font.new("rbxasset://fonts/families/Zekton.json", Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+G2L["4"].TextColor3 = Color3.fromRGB(255, 255, 255)
+G2L["4"].BackgroundTransparency = 1
+G2L["4"].Size = UDim2.new(0, 219, 0, 16)
+G2L["4"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+G2L["4"].Text = "Armor"
+G2L["4"].Name = "Section"
+G2L["4"].Position = UDim2.new(0.34987, 0, -7.5E-4, 0)
+
+G2L["5"] = Instance.new("Frame", G2L["2"])
+G2L["5"].ZIndex = 2
+G2L["5"].BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+G2L["5"].Size = UDim2.new(0, 786, 0, 81)
+G2L["5"].BorderColor3 = Color3.fromRGB(255, 255, 255)
+G2L["5"].Name = "Back"
+G2L["5"].BackgroundTransparency = 0.4
+
+G2L["6"] = Instance.new("Frame", G2L["2"])
+G2L["6"].BackgroundColor3 = Color3.fromRGB(31, 31, 31)
+G2L["6"].Size = UDim2.new(0, 788, 0, 83)
+G2L["6"].Position = UDim2.new(0, -1, 0, -1)
+G2L["6"].BorderColor3 = Color3.fromRGB(0, 0, 0)
+G2L["6"].Name = "Front"
+G2L["6"].BackgroundTransparency = 0.4
+
+-- Логика перетаскивания панельки с броней
+local l_2_0 = G2L["2"]
+local v133 = false
+local v134 = nil
+local v135 = nil
+
+l_2_0.InputBegan:Connect(function(v136, v137)
+    if v137 then return end
+    if v136.UserInputType == Enum.UserInputType.MouseButton1 or v136.UserInputType == Enum.UserInputType.Touch then
+        v133 = true
+        v134 = v136.Position
+        v135 = l_2_0.Position
+        v136.Changed:Connect(function()
+            if v136.UserInputState == Enum.UserInputState.End then
+                v133 = false
+            end
+        end)
+    end
+end)
+
+l_2_0.InputChanged:Connect(function(v138)
+    if v133 and (v138.UserInputType == Enum.UserInputType.MouseMovement or v138.UserInputType == Enum.UserInputType.Touch) then
+        local v139 = v138.Position - v134
+        l_2_0.Position = UDim2.new(v135.X.Scale, v135.X.Offset + v139.X, v135.Y.Scale, v135.Y.Offset + v139.Y)
+    end
+end)
+
+-- Маппинг брони
+local armorMapping = {
+    IronHelmet = ReplicatedStorage.Shared.items.wearables.Iron.IronHelmet.Image, 
+    IronChestplate = ReplicatedStorage.Shared.items.wearables.Iron.IronChestplate.Image, 
+    IronLeggings = ReplicatedStorage.Shared.items.wearables.Iron.IronLeggings.Image, 
+    WoodHelmet = ReplicatedStorage.Shared.items.wearables.wood.WoodHelmet.Image, 
+    WoodChestplate = ReplicatedStorage.Shared.items.wearables.wood.WoodChestplate.Image, 
+    WoodLeggings = ReplicatedStorage.Shared.items.wearables.wood.WoodLeggings.Image, 
+    Boots = ReplicatedStorage.Shared.items.wearables.clothes.Boots.Image, 
+    CamoPants = ReplicatedStorage.Shared.items.wearables.clothes.CamoPants.Image, 
+    CamoShirt = ReplicatedStorage.Shared.items.wearables.clothes.CamoShirt.Image, 
+    Flippers = ReplicatedStorage.Shared.items.wearables.clothes.Flippers.Image, 
+    PolicePants = ReplicatedStorage.Shared.items.wearables.clothes.PolicePants.Image, 
+    PoliceShirt = ReplicatedStorage.Shared.items.wearables.clothes.PoliceShirt.Image, 
+    RiotChestplate = ReplicatedStorage.Shared.items.wearables.riot.RiotChestplate.Image, 
+    RiotHelmet = ReplicatedStorage.Shared.items.wearables.riot.RiotHelmet.Image, 
+    RiotLeggings = ReplicatedStorage.Shared.items.wearables.riot.RiotLeggings.Image, 
+    SteelChestplate = ReplicatedStorage.Shared.items.wearables.steel.SteelChestplate.Image, 
+    SteelHelmet = ReplicatedStorage.Shared.items.wearables.steel.SteelHelmet.Image, 
+    SteelLeggings = ReplicatedStorage.Shared.items.wearables.steel.SteelLeggings.Image, 
+    CombatHelmet = ReplicatedStorage.Shared.items.wearables.CombatHelmet.Image, 
+    GasMask = ReplicatedStorage.Shared.items.wearables.GasMask.Image, 
+    JetPack = ReplicatedStorage.Shared.items.wearables.Jetpack.Image, 
+    KevlarVest = ReplicatedStorage.Shared.items.wearables.KevlarVest.Image, 
+    Rebreather = ReplicatedStorage.Shared.items.wearables.Rebreather.Image, 
+    ShoulderLight = ReplicatedStorage.Shared.items.wearables.ShoulderLight.Image, 
+    Sling = ReplicatedStorage.Shared.items.wearables.Sling.Image, 
+    SmallBackpack = ReplicatedStorage.Shared.items.wearables.SmallBackpack.Image
+}
+
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "ArmorPreviewUI"
+screenGui.ResetOnSpawn = false
+screenGui.Parent = localPlayer:WaitForChild("PlayerGui")
+
+local function v145(v140, v141)
+    local v142 = v140:Clone()
+    v142.Size = UDim2.new(0, 100, 0, 100)
+    local l_Position_1 = G2L["2"].Position
+    v142.Position = UDim2.new(l_Position_1.X.Scale, l_Position_1.X.Offset + v141, l_Position_1.Y.Scale, l_Position_1.Y.Offset + -12)
+    v142.BackgroundTransparency = 1
+    v142.Parent = G2L["1"]
+end
+
+local v146 = Drawing.new("Circle")
+v146.Visible = false
+v146.Thickness = 1.5
+v146.Radius = 220
+v146.Color = Color3.fromRGB(0, 255, 0)
+v146.Filled = false
+
+local v147 = Drawing.new("Line")
+v147.Visible = false
+v147.Thickness = 1.5
+v147.Color = Color3.fromRGB(255, 0, 0)
+
+local v148 = nil
+local v149 = 0
+local v150 = 1
+local v151 = false
+local v152 = 220
+
+-- Кнопки в меню LinoriaModded
+ArmorTab:AddToggle('ArmorEspToggle', {
+    Text = 'Armor Esp',
+    Default = false,
+    Callback = function(v153)
+        v151 = v153
+        v146.Visible = v153
+        if not v153 then
+            for _, v155 in ipairs(screenGui:GetChildren()) do
+                if v155:IsA("ViewportFrame") then
+                    v155:Destroy()
+                end
+            end
+            for _, v172 in ipairs(G2L["1"]:GetChildren()) do
+                if v172:IsA("ImageLabel") or v172:IsA("ViewportFrame") then
+                    v172:Destroy()
+                end
+            end
+        end
+    end
+})
+
+ArmorTab:AddSlider('FovSlider', {
+    Text = 'Fov Size',
+    Default = 220,
+    Min = 10,
+    Max = 500,
+    Rounding = 0,
+    Compact = false,
+    Callback = function(v157)
+        v152 = v157
+        v146.Radius = v157
+    end
+})
+
+local function v167()
+    local v159 = nil
+    local l_huge_0 = math.huge
+    local v161 = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
+    for _, v163 in ipairs(workspace:GetChildren()) do
+        if v163:IsA("Model") and v163:FindFirstChild("Head") and v163:FindFirstChild("Armor") then
+            local v164, v165 = camera:WorldToViewportPoint(v163.Head.Position)
+            if v165 then
+                local l_Magnitude_0 = (Vector2.new(v164.X, v164.Y) - v161).Magnitude
+                if l_Magnitude_0 <= v152 and l_Magnitude_0 < l_huge_0 then
+                    l_huge_0 = l_Magnitude_0
+                    v159 = v163
+                end
+            end
+        end
+    end
+    return v159
+end
+
+RunService.RenderStepped:Connect(function()
+    v146.Position = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
+    v149 = v149 + 1
+    if v149 < v150 then
+        return
+    else
+        v149 = 0
+        if not v151 then
+            v147.Visible = false
+            v148 = nil
+            return
+        else
+            local v168 = v167()
+            if v168 then
+                local v169, v170 = camera:WorldToViewportPoint(v168.Head.Position)
+                if v170 then
+                    v147.Visible = true
+                    v147.From = Vector2.new(camera.ViewportSize.X / 2, camera.ViewportSize.Y / 2)
+                    v147.To = Vector2.new(v169.X, v169.Y)
+                    if v168 ~= v148 then
+                        v148 = v168
+                        for _, v172 in ipairs(G2L["1"]:GetChildren()) do
+                            if v172:IsA("ImageLabel") or v172:IsA("ViewportFrame") then
+                                v172:Destroy()
+                            end
+                        end
+                        if v168:FindFirstChild("Armor") then
+                            local v173 = 10
+                            for _, v175 in ipairs(v168.Armor:GetChildren()) do
+                                local v176 = armorMapping[v175.Name]
+                                if v176 then
+                                    v145(v176, v173)
+                                    v173 = v173 + 130
+                                end
+                            end
+                        end
+                    end
+                else
+                    v147.Visible = false
+                    v148 = nil
+                    for _, v172 in ipairs(G2L["1"]:GetChildren()) do
+                        if v172:IsA("ImageLabel") or v172:IsA("ViewportFrame") then
+                            v172:Destroy()
+                        end
+                    end
+                end
+            else
+                v147.Visible = false
+                v148 = nil
+                for _, v172 in ipairs(G2L["1"]:GetChildren()) do
+                    if v172:IsA("ImageLabel") or v172:IsA("ViewportFrame") then
+                        v172:Destroy()
+                    end
+                end
+            end
+            return
+        end
+    end
+end)
+-- ========================================================================
+-- [ WEAPON & ITEM ESP ]
+-- ========================================================================
+local WeaponESP_Enabled = false
+local ItemESP_Enabled = false
+local WeaponESP_Drawings = {}
+local ItemESP_Drawings = {}
+local WeaponNames = {}
+local itemFrameCounter = 0
+
+local WeaponPartsMapping = {
+    Bow = {"Arrow", "Fabric", "Handle", "Meshes/Bow", "ADS", "Mover", "AnimationController"}, 
+    AR15 = {"AnimSaves", "Barrel", "Body", "Bolt", "ChargingHandle", "Decor", "Grip", "Handle", "Mag", "Rails", "Stock", "ADS", "Muzzle", "AnimationController"}, 
+    AdminMinigun = {"AnimSaves", "Barrel", "BarrelBolts", "Body", "Bolt", "Handle", "Handle2", "Trigger", "AnimationController"}, 
+    Bandage = {"Handle", "Bandage", "AnimationController"}, 
+    Beans = {"Beans", "Handle", "AnimationController"}, 
+    BloxyCola = {"Bloxy Cola HD", "Handle", "AnimationController"}, 
+    Blunderbuss = {"Body", "Handle", "Tube", "thing", "ADS", "Muzzle", "AnimationController"}, 
+    C4 = {"Handle", "default", "prim", "Light", "Timer", "AnimationController"}, 
+    C9 = {"Barrel", "Body", "Bolt", "Decor", "Grip", "Handle", "LowerSlide", "Mag", "Sight1", "Sight2", "UpperSlide", "ADS", "Muzzle", "AnimationController"}, 
+    ClimbingPick = {"Left", "Right", "AnimationController"}, 
+    CrossBow = {"Arrow", "BackMetal", "Body", "FrontNails", "Handle", "Release", "SpringSteel", "String", "Wheel", "ADS", "Slide", "AnimationController"}, 
+    Crowbar = {"Handle", "model", "AnimationController"}, 
+    Dynamite = {"Handle", "Body", "Fuse", "AnimationController"}, 
+    EnergyRifle = {"DefaultSight", "FrontCover", "Glowing", "Grip", "Handle", "Mag", "Metal", "Metal2", "RearCover", "RearDecor", "Screws", "Tubes", "AnimationController"}, 
+    FlameThrower = {"Barrel", "Body", "Decor", "Grip", "Handle", "Hoses", "LowerTank", "Mag", "Strap", "Tubes", "Particle", "AnimationController"}, 
+    Flare = {"Handle", "Body", "Color", "AnimationController"}, 
+    Flashgrenade = {"Body", "Color", "Fuse", "Handle", "Lever", "Ring", "AnimationController"}, 
+    GaussRifle = {"DefaultSight", "Barrel", "Body", "CoilHolders", "Coils", "Decals1", "Decals2", "Grip", "Handle", "Housing", "Mag", "StockBack", "AnimationController"}, 
+    Glowstick = {"Ends", "Handle", "GlowPart", "AnimationController"}, 
+    Grenade = {"Body", "Fuse", "Handle", "Lever", "LeverHolder", "Pin", "AnimationController"}, 
+    HMAR = {"DefaultSight", "Body", "Bolt", "Bolts", "Cover", "Handle", "Mag", "Rails", "Spring", "Stock", "Wood", "Muzzle", "AnimationController"}, 
+    HMCharge = {"Charge", "Fuse", "Handle", "Strap", "AnimationController"}, 
+    Hammer = {"Handle", "Head", "Dowel", "AnimationController"}, 
+    HealingBandage = {"Handle", "Bandage", "AnimationController"}, 
+    IronHammer = {"Handle", "Head", "Dowel", "AnimationController"}, 
+    KABAR = {"Blade", "Grip", "Guard", "Handle", "AnimationController"}, 
+    LeverActionRifle = {"9mm", "DefaultSight", "Body", "Brass", "Hammer", "Handle", "Lever", "Metal", "Thing", "Wood", "Muzzle", "AnimationController"}, 
+    M4A1 = {"DefaultSight", "Body", "Bolt", "ChargeHandle", "Grip", "Handle", "Mag", "Metal", "mbrk", "Muzzle", "AnimationController"}, 
+    MedSerum = {"Body", "Cross", "Handle", "Injector", "Plunger", "Spring", "AnimationController"}, 
+    Minigun = {"AnimSaves", "Barrel", "BarrelBolts", "Body", "Bolt", "Handle", "Handle2", "Trigger", "AnimationController"}, 
+    MiningDrill = {"Bearings", "Body", "DrillBit", "Handle", "Inlets", "Tubes", "VisualHandle", "AnimationController"}, 
+    Molotov = {"Handle", "default", "Part", "AnimationController"}, 
+    PipePistol = {"DefaultSight", "Body", "Bolt", "Handle", "Mag", "Muzzle", "AnimationController", "Animator"}, 
+    PipeSMG = {"DefaultSight", "Barrel", "Body", "Bolt", "Flap", "Grip", "Handle", "Mag", "Stock", "Muzzle", "AnimationController"}, 
+    PumpShotgun = {"Barrel", "Body", "Handle", "MainMetal", "RearSight", "Shell", "Slider", "ADS", "Muzzle", "AnimationController"}, 
+    RPG = {"RocketModel", "Body", "Body2", "Caps", "Fasteners", "FireMech", "Handle", "Safety", "Sight", "Trigger", "ADS", "Muzzle", "AnimationController"}, 
+    RiotShield = {"Body", "Glass", "Handle", "Metal", "Straps", "AnimationController"}, 
+    SCAR = {"DefaultSight", "Barrel", "Body", "ChargingHandle", "Decals", "Handle", "Mag", "Rails", "ShoulderPad", "Stock", "Muzzle", "AnimationController"}, 
+    SVD = {"DefaultSight", "Body", "Bolt", "Handle", "Magazine", "Magazine2", "Metal2", "Wood", "AnimationController"}, 
+    StelHammer = {"Handle", "Head", "Dowel", "DowelDecor", "AnimationController"}, 
+    StoneHammer = {"Handle", "Head", "Dowel", "AnimationController"}, 
+    USP9 = {"Body", "Handle", "Mag", "Slide", "ADS", "Muzzle", "AnimationController"}, 
+    UZI = {"DefaultSight", "Body", "Body2", "Bolt", "ChargingHandle", "Decor", "Grip", "Handle", "Mag", "Stock", "Muzzle", "AnimationController"}
+}
+
+local function createTextDrawing(textStr, color)
+    local text = Drawing.new("Text")
+    text.Text = textStr
+    text.Size = 16
+    text.Center = true
+    text.Outline = true
+    text.OutlineColor = Color3.new(0, 0, 0)
+    text.Color = color
+    text.Visible = false
+    return text
+end
+
+local function getWeaponName(model)
+    local handModel = model:FindFirstChild("HandModel")
+    if not handModel then return "None" end
+    local bestMatch = nil
+    local maxParts = 0
+    for wName, wParts in pairs(WeaponPartsMapping) do
+        local foundParts = 0
+        for _, partName in ipairs(wParts) do
+            if handModel:FindFirstChild(partName, true) then
+                foundParts = foundParts + 1
+            end
+        end
+        if foundParts > maxParts then
+            maxParts = foundParts
+            bestMatch = wName
+        end
+    end
+    return bestMatch or "None"
+end
+
+local function setupWeaponESP(model)
+    if WeaponESP_Drawings[model] then return end
+    local head = model:FindFirstChild("Head")
+    local torso = model:FindFirstChild("Torso") or model:FindFirstChild("UpperTorso") or model:FindFirstChild("LowerTorso")
+    if not head or not torso then return end
+
+    WeaponESP_Drawings[model] = { 
+        text = createTextDrawing("None", Color3.fromRGB(255, 255, 255)), 
+        head = head, 
+        torso = torso 
+    }
+
+    model.Destroying:Connect(function()
+        if WeaponESP_Drawings[model] then
+            WeaponESP_Drawings[model].text:Remove()
+            WeaponESP_Drawings[model] = nil
+        end
+    end)
+end
+
+local function setupItemESP(model)
+    if ItemESP_Drawings[model] then return end
+    local union = model:FindFirstChild("Union")
+    local display = model:FindFirstChild("Display")
+    local part = model:FindFirstChild("Part")
+    
+    local targetPart = union or display or part
+    if not targetPart then return end
+
+    ItemESP_Drawings[model] = {
+        drawing = createTextDrawing("Item", Color3.new(1, 1, 0)), 
+        part = targetPart
+    }
+end
+
+local function scanItems()
+    if not ItemESP_Enabled then return end
+    for _, v in ipairs(workspace:GetChildren()) do
+        if v:IsA("Model") then setupItemESP(v) end
+    end
+end
+
+local function clearItems()
+    for _, data in pairs(ItemESP_Drawings) do
+        data.drawing:Remove()
+    end
+    ItemESP_Drawings = {}
+end
+
+for _, v in ipairs(workspace:GetChildren()) do
+    if v:IsA("Model") and v ~= LocalPlayer.Character then setupWeaponESP(v) end
+end
+workspace.ChildAdded:Connect(function(v)
+    if v:IsA("Model") and v ~= LocalPlayer.Character then setupWeaponESP(v) end
+end)
+
+task.spawn(function()
+    while true do
+        for model, _ in pairs(WeaponESP_Drawings) do
+            WeaponNames[model] = getWeaponName(model)
+        end
+        task.wait(1)
+    end
+end)
+
+extraEspGroup:AddToggle('WeaponEspToggle', {
+    Text = 'Weapon ESP',
+    Default = false,
+    Callback = function(Value)
+        WeaponESP_Enabled = Value
+        if not Value then
+            for _, data in pairs(WeaponESP_Drawings) do
+                data.text.Visible = false
+            end
+        end
+    end
+})
+
+extraEspGroup:AddToggle('ItemEspToggle', {
+    Text = 'Item ESP',
+    Default = false,
+    Callback = function(Value)
+        ItemESP_Enabled = Value
+        if Value then
+            scanItems()
+        else
+            clearItems()
+        end
+    end
+})
+
+RunService.RenderStepped:Connect(function()
+    if WeaponESP_Enabled then
+        local camPos = Camera.CFrame.Position
+        for model, data in pairs(WeaponESP_Drawings) do
+            local head = data.head
+            local torso = data.torso
+            if head and torso and head.Parent and torso.Parent then
+                local midPoint = (head.Position + torso.Position) * 0.5
+                local dist = (midPoint - camPos).Magnitude
+                
+                if dist < 3000 then
+                    local screenPos, onScreen = Camera:WorldToViewportPoint(midPoint)
+                    if onScreen then
+                        local scale = 1000 / (dist * 2) / math.tan(math.rad(Camera.FieldOfView / 1.7))
+                        local heightOffset = math.clamp(math.floor(9.5 * scale), 14, 800)
+                        
+                        data.text.Text = WeaponNames[model] or "None"
+                        data.text.Position = Vector2.new(screenPos.X, screenPos.Y + heightOffset/2)
+                        data.text.Visible = true
+                    else
+                        data.text.Visible = false
+                    end
+                else
+                    data.text.Visible = false
+                end
+            else
+                data.text.Visible = false
+            end
+        end
+    end
+
+    if ItemESP_Enabled then
+        itemFrameCounter = itemFrameCounter + 1
+        if itemFrameCounter >= 10 then
+            scanItems()
+            itemFrameCounter = 0
+        end
+        for model, data in pairs(ItemESP_Drawings) do
+            if data.part and data.part.Parent then
+                local screenPos, onScreen = Camera:WorldToViewportPoint(data.part.Position)
+                if onScreen then
+                    data.drawing.Position = Vector2.new(screenPos.X, screenPos.Y - 20)
+                    data.drawing.Visible = true
+                else
+                    data.drawing.Visible = false
+                end
+            else
+                data.drawing:Remove()
+                ItemESP_Drawings[model] = nil
+            end
+        end
+    end
+end)
+-- ========================================================================
+-- [ WEAPON TRAIL & ARROW TRAIL ]
+-- ========================================================================
+local BulletTrailEnabled = false
+local BulletTrailColor = Color3.fromRGB(255, 255, 255)
+local BulletTrailThickness = 0.2
+local BulletTrailLength = 10
+local BulletTrailLifetime = 0.1
+
+local function createBulletTrail(bullet)
+    local trailData = { bullet = bullet, points = {} }
+    local connection
+    connection = RunService.RenderStepped:Connect(function()
+        if not BulletTrailEnabled then return end
+        if not bullet or not bullet.Parent then
+            connection:Disconnect()
+            return
+        end
+        local pos = bullet.Position or bullet.CFrame.Position
+        table.insert(trailData.points, 1, pos)
+        if #trailData.points > BulletTrailLength then
+            table.remove(trailData.points)
+        end
+        for i = 1, #trailData.points - 1 do
+            local p1 = trailData.points[i]
+            local p2 = trailData.points[i + 1]
+            local part = Instance.new("Part")
+            part.Anchored = true
+            part.CanCollide = false
+            part.Size = Vector3.new(BulletTrailThickness, BulletTrailThickness, (p1 - p2).Magnitude)
+            part.CFrame = CFrame.new(p1, p2) * CFrame.new(0, 0, -part.Size.Z / 2)
+            part.Color = BulletTrailColor
+            part.Material = Enum.Material.ForceField
+            part.Parent = workspace
+            game:GetService("Debris"):AddItem(part, BulletTrailLifetime)
+        end
+    end)
+end
+
+workspace.DescendantAdded:Connect(function(desc)
+    if desc.Name == "Bullet" and not desc:IsDescendantOf(ReplicatedStorage) and BulletTrailEnabled then
+        createBulletTrail(desc)
+    end
+end)
+
+trailChamsGroup:AddToggle('BulletTrailToggle', {
+    Text = 'Bullet Trail',
+    Default = false,
+    Callback = function(v) BulletTrailEnabled = v end
+}):AddColorPicker('BulletTrailColor', {
+    Default = Color3.fromRGB(255, 255, 255),
+    Callback = function(v) BulletTrailColor = v end
+})
+
+trailChamsGroup:AddSlider('BulletTrailThickness', { Text = 'Trail Thickness', Default = 0.2, Min = 0.1, Max = 1, Rounding = 1, Callback = function(v) BulletTrailThickness = v end })
+trailChamsGroup:AddSlider('BulletTrailLength', { Text = 'Bullet Trail Length', Default = 10, Min = 1, Max = 25, Rounding = 0, Callback = function(v) BulletTrailLength = v end })
+trailChamsGroup:AddSlider('BulletTrailLifetime', { Text = 'Trail LifeTime', Default = 0.1, Min = 0.01, Max = 5, Rounding = 2, Callback = function(v) BulletTrailLifetime = v end })
+
+trailChamsGroup:AddSlider('ArrowTrailLifespan', { 
+    Text = 'Arrow Trail lifespan', Default = 0.15, Min = 0.15, Max = 20, Rounding = 2, 
+    Callback = function(v) 
+        local arrow = ReplicatedStorage:FindFirstChild("Arrow")
+        if arrow and arrow:FindFirstChild("Trail") then arrow.Trail.Lifetime = v end 
+    end 
+})
+
+trailChamsGroup:AddLabel('Arrow Trail Color'):AddColorPicker('ArrowTrailColor', {
+    Default = Color3.fromRGB(255, 255, 255),
+    Callback = function(v)
+        local arrow = ReplicatedStorage:FindFirstChild("Arrow")
+        if arrow and arrow:FindFirstChild("Trail") then arrow.Trail.Color = ColorSequence.new(v) end
+    end
+})
+
+-- ========================================================================
+-- [ HAND AND WEAPON CHAMS ]
+-- ========================================================================
+local HandParts = {}
+local HandOriginalMats = {}
+local HandChamColor = Color3.fromRGB(255, 255, 255)
+
+local function getNestedChild(parent, path)
+    local current = parent
+    for _, name in ipairs(path) do
+        if current then current = current:FindFirstChild(name) end
+        if not current then return nil end
+    end
+    return current
+end
+
+local function updateHandParts()
+    HandParts = {}
+    local paths = {
+        {"Const", "Ignore", "FPSArms", "RightHand"}, 
+        {"Const", "Ignore", "FPSArms", "RightLowerArm"}, 
+        {"Const", "Ignore", "FPSArms", "LeftLowerArm"}, 
+        {"Const", "Ignore", "FPSArms", "LeftHand"}, 
+        {"Const", "Ignore", "FPSArms", "Fake", "c_RightLowerArm"}, 
+        {"Const", "Ignore", "FPSArms", "Fake", "c_LeftLowerArm"}
+    }
+    for _, path in ipairs(paths) do
+        local part = getNestedChild(workspace, path)
+        if part and part:IsA("BasePart") then
+            table.insert(HandParts, part)
+            if not HandOriginalMats[part] then
+                HandOriginalMats[part] = part.Material
+            end
+        end
+    end
+end
+
+local function applyHandMaterial(matName)
+    if matName == "Default" then
+        for _, part in ipairs(HandParts) do
+            if part and part.Parent then
+                part.Material = HandOriginalMats[part] or Enum.Material.Plastic
+            end
+        end
+    else
+        local success, matEnum = pcall(function() return Enum.Material[matName] end)
+        if success and matEnum then
+            for _, part in ipairs(HandParts) do
+                if part and part.Parent then part.Material = matEnum end
+            end
+        else
+            for _, part in ipairs(HandParts) do
+                if part and part.Parent then
+                    pcall(function() part.MaterialVariant = matName end)
+                end
+            end
+        end
+    end
+end
+
+updateHandParts()
+LocalPlayer.CharacterAdded:Connect(function(char)
+    local const = char:WaitForChild("Const", 5)
+    if const then const:WaitForChild("Ignore", 5) end
+end)
+
+task.spawn(function()
+    while true do
+        updateHandParts()
+        for _, part in ipairs(HandParts) do
+            if part and part.Parent then part.Color = HandChamColor end
+        end
+        task.wait(0.1)
+    end
+end)
+
+trailChamsGroup:AddDropdown('HandChamsMat', {
+    Values = {"Default", "ForceField", "Neon", "Asphalt"}, Default = 1, Multi = false, Text = 'Hand Material',
+    Callback = function(v) updateHandParts(); applyHandMaterial(v) end
+})
+
+trailChamsGroup:AddLabel('Hand Cham Color'):AddColorPicker('HandChamsCol', {
+    Default = Color3.fromRGB(255, 255, 255),
+    Callback = function(v)
+        HandChamColor = v
+        for _, part in ipairs(HandParts) do
+            if part and part.Parent then part.Color = v end
+        end
+    end
+})
+
+-- WEAPON CHAMS
+local HandModelsFolder = ReplicatedStorage:WaitForChild("HandModels")
+local WeaponParts = {}
+local WeaponOriginalMats = {}
+
+local function scanWeaponParts(model)
+    local parts = {}
+    local mats = {}
+    local function scan(parent)
+        if parent:IsA("BasePart") then
+            table.insert(parts, parent)
+            if not mats[parent] then mats[parent] = parent.Material end
+        end
+        for _, child in ipairs(parent:GetChildren()) do scan(child) end
+    end
+    scan(model)
+    return parts, mats
+end
+
+local function updateWeaponParts()
+    WeaponParts = {}
+    for _, model in ipairs(HandModelsFolder:GetChildren()) do
+        local parts, mats = scanWeaponParts(model)
+        WeaponParts[model] = parts
+        for part, mat in pairs(mats) do
+            WeaponOriginalMats[part] = mat
+        end
+    end
+end
+
+local function applyWeaponMaterial(matName)
+    if matName == "Default" then
+        for _, parts in pairs(WeaponParts) do
+            for _, part in ipairs(parts) do
+                if part and part.Parent then
+                    part.Material = WeaponOriginalMats[part] or Enum.Material.Plastic
+                end
+            end
+        end
+    else
+        local success, matEnum = pcall(function() return Enum.Material[matName] end)
+        if success and matEnum then
+            for _, parts in pairs(WeaponParts) do
+                for _, part in ipairs(parts) do
+                    if part and part.Parent then part.Material = matEnum end
+                end
+            end
+        else
+            for _, parts in pairs(WeaponParts) do
+                for _, part in ipairs(parts) do
+                    if part and part.Parent then
+                        pcall(function() part.MaterialVariant = matName end)
+                    end
+                end
+            end
+        end
+    end
+end
+
+local function applyWeaponColor(color)
+    for _, parts in pairs(WeaponParts) do
+        for _, part in ipairs(parts) do
+            if part and part.Parent then part.Color = color end
+        end
+    end
+end
+
+updateWeaponParts()
+HandModelsFolder.ChildAdded:Connect(function()
+    task.wait(0.5)
+    updateWeaponParts()
+    if Options.WeaponChamsMat then applyWeaponMaterial(Options.WeaponChamsMat.Value) end
+    if Options.WeaponChamsCol then applyWeaponColor(Options.WeaponChamsCol.Value) end
+end)
+
+trailChamsGroup:AddDropdown('WeaponChamsMat', {
+    Values = {"Default", "ForceField", "Neon", "Asphalt"}, Default = 1, Multi = false, Text = 'Weapon Material',
+    Callback = function(v) updateWeaponParts(); applyWeaponMaterial(v) end
+})
+
+trailChamsGroup:AddLabel('Weapon Cham Color'):AddColorPicker('WeaponChamsCol', {
+    Default = Color3.fromRGB(255, 255, 255),
+    Callback = function(v) applyWeaponColor(v) end
+})
+-- ========================================================================
+-- [ 8-УГОЛЬНАЯ FREE CAMERA С КНОПКОЙ W/Ц (ИНТЕГРАЦИЯ В МЕНЮ) ]
+-- ========================================================================
+local FC_UserInputService = game:GetService("UserInputService")
+local FC_RunService = game:GetService("RunService")
+local FC_Camera = workspace.CurrentCamera
+local FC_LocalPlayer = game:GetService("Players").LocalPlayer
+local FC_StarterGui = game:GetService("StarterGui")
+
+local FreeCamEnabled = false
+local FreeCamSpeed = 60
+local PITCH_LIMIT = math.rad(80)
+
+local camPos = Vector3.zero
+local camYaw, camPitch = 0, 0
+local savedWalkSpeed = 16
+local savedJumpPower = 50
+
+local activeKeys = {}
+local isForwardPressed = false
+
+local keyMap = {
+    [Enum.KeyCode.W] = Vector3.new(0, 0, -1),
+    [Enum.KeyCode.S] = Vector3.new(0, 0, 1),
+    [Enum.KeyCode.A] = Vector3.new(-1, 0, 0),
+    [Enum.KeyCode.D] = Vector3.new(1, 0, 0),
+    [Enum.KeyCode.Space] = Vector3.new(0, 1, 0),
+    [Enum.KeyCode.LeftShift] = Vector3.new(0, -1, 0)
+}
+
+local MobileControls = nil
+task.spawn(function()
+    pcall(function()
+        local PlayerModule = require(FC_LocalPlayer:WaitForChild("PlayerScripts"):WaitForChild("PlayerModule"))
+        MobileControls = PlayerModule:GetControls()
+    end)
+end)
+
+local fcGui = Instance.new("ScreenGui")
+fcGui.Name = "FreeCamMobileUI"
+fcGui.ResetOnSpawn = false
+local successGui = pcall(function() fcGui.Parent = game:GetService("CoreGui") end)
+if not successGui then fcGui.Parent = FC_LocalPlayer:WaitForChild("PlayerGui") end
+
+-- 1. КНОПКА ВКЛЮЧЕНИЯ (8-УГОЛЬНИК СЛЕВА ПОСЕРЕДИНЕ)
+local toggleContainer = Instance.new("Frame")
+toggleContainer.Size = UDim2.new(0, 80, 0, 80)
+toggleContainer.Position = UDim2.new(0, 20, 0.5, -40)
+toggleContainer.BackgroundTransparency = 1
+toggleContainer.Visible = false -- Изначально скрыто, включается через меню чита
+toggleContainer.Parent = fcGui
+
+local oct1 = Instance.new("Frame")
+oct1.Size = UDim2.new(1, 0, 1, 0)
+oct1.AnchorPoint = Vector2.new(0.5, 0.5)
+oct1.Position = UDim2.new(0.5, 0, 0.5, 0)
+oct1.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+oct1.BorderSizePixel = 0
+oct1.Parent = toggleContainer
+
+local oct2 = Instance.new("Frame")
+oct2.Size = UDim2.new(1, 0, 1, 0)
+oct2.AnchorPoint = Vector2.new(0.5, 0.5)
+oct2.Position = UDim2.new(0.5, 0, 0.5, 0)
+oct2.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+oct2.Rotation = 45
+oct2.BorderSizePixel = 0
+oct2.Parent = toggleContainer
+
+local toggleBtn = Instance.new("TextButton")
+toggleBtn.Size = UDim2.new(1, 0, 1, 0)
+toggleBtn.BackgroundTransparency = 1
+toggleBtn.Text = "Enable"
+toggleBtn.Font = Enum.Font.Arcade -- Майнкрафт шрифт
+toggleBtn.TextSize = 22
+toggleBtn.TextColor3 = Color3.fromRGB(255, 50, 50)
+toggleBtn.ZIndex = 5
+toggleBtn.Parent = toggleContainer
+
+-- 2. КНОПКА "Вперед" (W/Ц)
+local forwardBtn = Instance.new("TextButton")
+forwardBtn.Size = UDim2.new(0, 65, 0, 65)
+forwardBtn.Position = UDim2.new(0.5, -32, 1, -120)
+forwardBtn.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+forwardBtn.Text = ""
+forwardBtn.AutoButtonColor = false
+forwardBtn.Visible = false
+forwardBtn.Parent = fcGui
+
+local btnCorner = Instance.new("UICorner")
+btnCorner.CornerRadius = UDim.new(0, 6)
+btnCorner.Parent = forwardBtn
+
+local textW = Instance.new("TextLabel")
+textW.Size = UDim2.new(1, -15, 1, -15)
+textW.Position = UDim2.new(0, 12, 0, 8)
+textW.BackgroundTransparency = 1
+textW.Text = "W"
+textW.TextColor3 = Color3.fromRGB(255, 255, 255)
+textW.Font = Enum.Font.Gotham
+textW.TextSize = 30
+textW.TextXAlignment = Enum.TextXAlignment.Left
+textW.TextYAlignment = Enum.TextYAlignment.Top
+textW.Parent = forwardBtn
+
+local textC = Instance.new("TextLabel")
+textC.Size = UDim2.new(1, -12, 1, -10)
+textC.Position = UDim2.new(0, 0, 0, 0)
+textC.BackgroundTransparency = 1
+textC.Text = "Ц"
+textC.TextColor3 = Color3.fromRGB(200, 200, 200)
+textC.Font = Enum.Font.Gotham
+textC.TextSize = 16
+textC.TextXAlignment = Enum.TextXAlignment.Right
+textC.TextYAlignment = Enum.TextYAlignment.Bottom
+textC.Parent = forwardBtn
+
+local function ToggleFreeCam(state)
+    if state ~= nil then
+        FreeCamEnabled = state
+    else
+        FreeCamEnabled = not FreeCamEnabled
+    end
+    
+    if FreeCamEnabled then
+        toggleBtn.TextColor3 = Color3.fromRGB(50, 255, 50)
+        forwardBtn.Visible = true
+        
+        camPos = FC_Camera.CFrame.Position
+        local look = FC_Camera.CFrame.LookVector
+        camYaw = math.atan2(-look.X, -look.Z)
+        camPitch = math.asin(look.Y)
+        
+        FC_Camera.CameraType = Enum.CameraType.Scriptable
+        
+        if FC_LocalPlayer.Character and FC_LocalPlayer.Character:FindFirstChild("Humanoid") then
+            savedWalkSpeed = FC_LocalPlayer.Character.Humanoid.WalkSpeed
+            savedJumpPower = FC_LocalPlayer.Character.Humanoid.JumpPower
+            FC_LocalPlayer.Character.Humanoid.WalkSpeed = 0
+            FC_LocalPlayer.Character.Humanoid.JumpPower = 0
+        end
+    else
+        toggleBtn.TextColor3 = Color3.fromRGB(255, 50, 50)
+        forwardBtn.Visible = false
+        isForwardPressed = false
+        
+        FC_Camera.CameraType = Enum.CameraType.Custom
+        
+        if FC_LocalPlayer.Character and FC_LocalPlayer.Character:FindFirstChild("Humanoid") then
+            FC_LocalPlayer.Character.Humanoid.WalkSpeed = savedWalkSpeed
+            FC_LocalPlayer.Character.Humanoid.JumpPower = savedJumpPower
+        end
+    end
+end
+
+toggleBtn.MouseButton1Click:Connect(function() ToggleFreeCam() end)
+
+forwardBtn.InputBegan:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        isForwardPressed = true
+        forwardBtn.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+    end
+end)
+
+forwardBtn.InputEnded:Connect(function(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+        isForwardPressed = false
+        forwardBtn.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+    end
+end)
+
+FC_UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if gameProcessed then return end
+    if keyMap[input.KeyCode] then
+        activeKeys[input.KeyCode] = true
+    end
+end)
+
+FC_UserInputService.InputEnded:Connect(function(input)
+    if keyMap[input.KeyCode] then
+        activeKeys[input.KeyCode] = false
+    end
+end)
+
+FC_UserInputService.InputChanged:Connect(function(input, gameProcessed)
+    if gameProcessed then return end 
+    if FreeCamEnabled and (input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch) then
+        camYaw = camYaw - input.Delta.X * 0.005
+        camPitch = math.clamp(camPitch - input.Delta.Y * 0.005, -PITCH_LIMIT, PITCH_LIMIT)
+    end
+end)
+
+FC_RunService.RenderStepped:Connect(function(dt)
+    if FreeCamEnabled then
+        local moveDir = Vector3.zero
+        
+        for key, dir in pairs(keyMap) do
+            if activeKeys[key] then
+                moveDir = moveDir + dir
+            end
+        end
+        
+        if isForwardPressed then
+            moveDir = moveDir + Vector3.new(0, 0, -1)
+        end
+        
+        if MobileControls then
+            local moveVector = MobileControls:GetMoveVector()
+            if moveVector.Magnitude > 0 then
+                moveDir = moveDir + Vector3.new(moveVector.X, 0, moveVector.Z)
+            end
+        end
+        
+        local camRotation = CFrame.Angles(0, camYaw, 0) * CFrame.Angles(camPitch, 0, 0)
+        
+        if moveDir.Magnitude > 0 then
+            moveDir = camRotation:VectorToWorldSpace(moveDir).Unit
+            camPos = camPos + moveDir * FreeCamSpeed * dt
+        end
+        
+        FC_Camera.CFrame = CFrame.new(camPos) * camRotation
+    end
+end)
+
+task.spawn(function()
+    task.wait(1)
+    pcall(function()
+        FC_StarterGui:SetCore("SendNotification", {
+            Title = "FreeCam Загружен!",
+            Text = "Включи отображение 8-угольника в меню Misc.",
+            Icon = "rbxassetid://6023426923",
+            Duration = 5
+        })
+    end)
+end)
+
+-- ДОБАВЛЯЕМ НАСТРОЙКИ В МЕНЮ ЧИТА (В ОТДЕЛ MISC)
+freecamGroup:AddToggle('FC_ShowBtn', {
+    Text = 'Показать 8-угольник FreeCam',
+    Default = false,
+    Callback = function(Value)
+        toggleContainer.Visible = Value
+        if not Value and FreeCamEnabled then
+            ToggleFreeCam(false)
+        end
+    end
+})
+
+freecamGroup:AddSlider('FC_Speed', {
+    Text = 'Скорость полета',
+    Default = 60,
+    Min = 10,
+    Max = 500,
+    Rounding = 0,
+    Callback = function(Value)
+        FreeCamSpeed = Value
+    end
+})
+-- ========================================================================
+-- [ WATER SETTINGS (ТОЧЬ-В-ТОЧЬ ИЗ ТВОЕГО СКРИПТА) ]
+-- ========================================================================
+waterGroup:AddLabel('Water Color'):AddColorPicker('WaterColorPicker', { 
+    Default = Color3.fromRGB(12, 84, 92), 
+    Callback = function(v) game.Workspace.Terrain.WaterColor = v end 
+})
+
+waterGroup:AddToggle('WaterReflectanceToggle', { 
+    Text = 'Water Reflectance', 
+    Default = true, 
+    Callback = function(v) 
+        if v == true then
+            game.Workspace.Terrain.WaterReflectance = 1
+        elseif v == false then
+            game.Workspace.Terrain.WaterReflectance = 0
+        end
+    end 
+})
+
+waterGroup:AddSlider('WaterSpeedSlider', { 
+    Text = 'Water speed', 
+    Default = 10, 
+    Min = 1, 
+    Max = 100, 
+    Rounding = 0, 
+    Callback = function(v) game.Workspace.Terrain.WaterWaveSpeed = v end 
+})
+
+waterGroup:AddSlider('WaveSizeSlider', { 
+    Text = 'Wave size', 
+    Default = 0.5, 
+    Min = 0, 
+    Max = 1, 
+    Rounding = 1, 
+    Callback = function(v) game.Workspace.Terrain.WaterWaveSize = v end 
+})
