@@ -1,244 +1,11 @@
--- [[ CLANSY EXTERNAL LOADER START ]] --
-local player = game:GetService("Players").LocalPlayer
-local border = "============================================================"
-
-local clansy = [[
-      ____ _        _    _   _   ______ __   __
-                 / ___| |      / \  | \ | | / ___   \ \ / /
-                | |   | |     / _ \ |  \| | \___ \   \   / 
-                | |___| |___ / ___ \| |\  | ____) |   | |  
-                 \____|_____/_/   \_|_| \_| _____/    |_|  
-]]
-
-local external = [[
-     _______ __   __ _____ ______ ____   _   _    _    _  
-                |  ____\ \ \ / /_   __|  ____|  __ \| \ | |  / \  | |    
-                |  __|_   \   /  | |  |  __| | |__) |  \| | / _ \ | |    
-                |  ____|  /   \  | |  |  |___|  _  /| |\  |/ ___ \| |____
-                |_______/_/ \ _\ |_|  |______|_| \_\|_| \_/_/   \_\______|
-]]
-
-local goodluck = [[
-     ____  ____  ____    _____     _         _    _   _____  _  _
-                / ___|/ __ \|  __ \ |  __ \   | |       | |  | | /  ___ | |/ /
-               | |  _| |  | | |  | || |  | |  | |       | |  | | | |    |   \ 
-               | |_| | |__| | |__| || |__| |  | |_____  | |__| | | |___ | |\ \
-                \____|\____/|____ / |_____/   |_______\ |____/ \ \_____ |_| \_\
-]]
-
--- Солидная загрузка на экране
-local sg = Instance.new("ScreenGui", player:WaitForChild("PlayerGui"))
-local label = Instance.new("TextLabel", sg)
-label.Size = UDim2.new(1, 0, 1, 0)
-label.BackgroundTransparency = 1
-label.TextColor3 = Color3.new(1, 1, 1)
-label.TextSize = 45
-label.Font = Enum.Font.GothamBold
-label.Text = "Clansy External Loading . . ."
-
--- Уведомление
-game:GetService("StarterGui"):SetCore("SendNotification", {
-    Title = player.Name .. " inject Clansy External, Lucky!",
-    Text = "Initializing System...",
-    Duration = 5
-})
-
--- Вывод твоего арта в консоль
-warn(border)
-print(clansy)
-warn("------------------------------------------------------------")
-print(external)
-warn("------------------------------------------------------------")
-print(goodluck)
-warn(border)
-
-task.wait(3)
-sg:Destroy()
--- [[ CLANSY EXTERNAL LOADER END ]] --
-
--- ДАЛЬШЕ ИДЕТ ТВОЙ ОСНОВНОЙ КОД:
- local MY_CHEAT_TITLE = "PRIVATE EXTERNAL"
--- ========================================================================
--- [ СИСТЕМА КЛЮЧЕЙ (ВСТАВЛЯТЬ В САМОЕ НАЧАЛО СКРИПТА) ]
--- ========================================================================
-local CoreGui = game:GetService("CoreGui")
-local Players = game:GetService("Players")
-local LocalPlayer = Players.LocalPlayer
-
-local isAuthenticated = false
-local keyType = "" -- "lifetime" или "temp"
-
--- Создаем UI для ввода ключа
-local KeyGui = Instance.new("ScreenGui")
-KeyGui.Name = "KeySystemUI"
-KeyGui.ResetOnSpawn = false
-local successGui = pcall(function() KeyGui.Parent = CoreGui end)
-if not successGui then KeyGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
-
-local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 350, 0, 200)
-MainFrame.Position = UDim2.new(0.5, -175, 0.5, -100)
-MainFrame.BackgroundColor3 = Color3.fromRGB(25, 25, 25)
-MainFrame.BorderSizePixel = 0
-MainFrame.Parent = KeyGui
-
-local UICorner = Instance.new("UICorner")
-UICorner.CornerRadius = UDim.new(0, 10)
-UICorner.Parent = MainFrame
-
-local UIStroke = Instance.new("UIStroke")
-UIStroke.Color = Color3.fromRGB(255, 0, 80)
-UIStroke.Thickness = 2
-UIStroke.Parent = MainFrame
-
-local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1, 0, 0, 40)
-Title.BackgroundTransparency = 1
-Title.Text = "ВВЕДИТЕ КЛЮЧ"
-Title.TextColor3 = Color3.fromRGB(255, 0, 80)
-Title.Font = Enum.Font.GothamBold
-Title.TextSize = 20
-Title.Parent = MainFrame
-
-local TextBox = Instance.new("TextBox")
-TextBox.Size = UDim2.new(0, 300, 0, 40)
-TextBox.Position = UDim2.new(0.5, -150, 0, 60)
-TextBox.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
-TextBox.TextColor3 = Color3.new(1, 1, 1)
-TextBox.PlaceholderText = "Введи ключ сюда..."
-TextBox.Font = Enum.Font.Gotham
-TextBox.TextSize = 14
-TextBox.Parent = MainFrame
-Instance.new("UICorner", TextBox).CornerRadius = UDim.new(0, 6)
-
-local StatusLabel = Instance.new("TextLabel")
-StatusLabel.Size = UDim2.new(1, 0, 0, 20)
-StatusLabel.Position = UDim2.new(0, 0, 0, 105)
-StatusLabel.BackgroundTransparency = 1
-StatusLabel.Text = ""
-StatusLabel.TextColor3 = Color3.fromRGB(200, 200, 200)
-StatusLabel.Font = Enum.Font.Gotham
-StatusLabel.TextSize = 13
-StatusLabel.Parent = MainFrame
-
-local SubmitBtn = Instance.new("TextButton")
-SubmitBtn.Size = UDim2.new(0, 140, 0, 35)
-SubmitBtn.Position = UDim2.new(0, 25, 0, 140)
-SubmitBtn.BackgroundColor3 = Color3.fromRGB(255, 0, 80)
-SubmitBtn.TextColor3 = Color3.new(1, 1, 1)
-SubmitBtn.Text = "ВОЙТИ"
-SubmitBtn.Font = Enum.Font.GothamBold
-SubmitBtn.TextSize = 14
-SubmitBtn.Parent = MainFrame
-Instance.new("UICorner", SubmitBtn).CornerRadius = UDim.new(0, 6)
-
-local GetKeyBtn = Instance.new("TextButton")
-GetKeyBtn.Size = UDim2.new(0, 140, 0, 35)
-GetKeyBtn.Position = UDim2.new(1, -165, 0, 140)
-GetKeyBtn.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
-GetKeyBtn.TextColor3 = Color3.new(1, 1, 1)
-GetKeyBtn.Text = "ПОЛУЧИТЬ КОД"
-GetKeyBtn.Font = Enum.Font.GothamBold
-GetKeyBtn.TextSize = 14
-GetKeyBtn.Parent = MainFrame
-Instance.new("UICorner", GetKeyBtn).CornerRadius = UDim.new(0, 6)
-
--- Динамическая проверка при вводе текста
-TextBox:GetPropertyChangedSignal("Text"):Connect(function()
-    local txt = TextBox.Text
-    if txt == "Betarelease67" then
-        StatusLabel.Text = "Доступ: Навсегда"
-        StatusLabel.TextColor3 = Color3.fromRGB(50, 255, 50)
-    elseif txt == "Semitest" then
-        StatusLabel.Text = "Доступ: 2 часа"
-        StatusLabel.TextColor3 = Color3.fromRGB(255, 255, 50)
-    else
-        StatusLabel.Text = ""
-    end
-end)
-
--- Кнопка получения кода
-GetKeyBtn.MouseButton1Click:Connect(function()
-    pcall(function()
-        setclipboard("https://t.me/+DatEf9N37eA3ZGY6")
-    end)
-    StatusLabel.Text = "Ссылка скопирована в буфер!"
-    StatusLabel.TextColor3 = Color3.fromRGB(100, 200, 255)
-end)
-
--- Кнопка входа
-SubmitBtn.MouseButton1Click:Connect(function()
-    local input = TextBox.Text
-    if input == "Betarelease67" then
-        keyType = "lifetime"
-        isAuthenticated = true
-        KeyGui:Destroy()
-    elseif input == "Semitest" then
-        keyType = "temp"
-        isAuthenticated = true
-        KeyGui:Destroy()
-    else
-        StatusLabel.Text = "Неверный ключ!"
-        StatusLabel.TextColor3 = Color3.fromRGB(255, 50, 50)
-    end
-end)
-
--- ОСТАНАВЛИВАЕМ СКРИПТ ПОКА НЕ ВВЕДЕН КЛЮЧ
-while not isAuthenticated do
-    task.wait(0.1)
-end
-
--- ========================================================================
--- [ ТАЙМЕР НАД МЕНЮ ЧИТА ]
--- ========================================================================
-local TopGui = Instance.new("ScreenGui")
-TopGui.Name = "CheatTimerUI"
-TopGui.ResetOnSpawn = false
-local successTop = pcall(function() TopGui.Parent = CoreGui end)
-if not successTop then TopGui.Parent = LocalPlayer:WaitForChild("PlayerGui") end
-
-local TimerLabel = Instance.new("TextLabel")
-TimerLabel.Size = UDim2.new(0, 300, 0, 30)
-TimerLabel.Position = UDim2.new(0.5, -150, 0, 15) -- Посередине сверху
-TimerLabel.BackgroundTransparency = 1
-TimerLabel.TextColor3 = Color3.fromRGB(255, 0, 80)
-TimerLabel.Font = Enum.Font.GothamBold
-TimerLabel.TextSize = 18
-TimerLabel.TextStrokeTransparency = 0
-TimerLabel.Parent = TopGui
-
-if keyType == "lifetime" then
-    TimerLabel.Text = "навсегда лол:)"
-elseif keyType == "temp" then
-    local endTime = os.time() + 7200 -- 2 часа (7200 секунд)
-    
-    task.spawn(function()
-        while true do
-            local remaining = endTime - os.time()
-            
-            if remaining <= 0 then
-                LocalPlayer:Kick("ключ закончился!!!!")
-                break
-            end
-            
-            local hours = math.floor(remaining / 3600)
-            local mins = math.floor((remaining % 3600) / 60)
-            local secs = remaining % 60
-            
-            TimerLabel.Text = string.format("Таймер: %02d:%02d:%02d", hours, mins, secs)
-            task.wait(1)
-        end
-    end)
-end
-
--- ДАЛЬШЕ ИДЕТ ТВОЙ ОСНОВНОЙ СКРИПТ
--- local MY_CHEAT_TITLE = "PRIVATE EXTERNAL"
--- local ACCENT_COLOR = Color3.fromRGB(255, 0, 80)
--- ... и так далее ...
+local MY_CHEAT_TITLE = "Waster ware"
 local ACCENT_COLOR = Color3.fromRGB(255, 0, 80)
 
 local workspace = cloneref(game:GetService("Workspace"))
 local Players = cloneref(game:GetService("Players"))
+
+repeat task.wait() until Players.LocalPlayer
+
 local RunService = cloneref(game:GetService("RunService"))
 local CollectionService = cloneref(game:GetService("CollectionService"))
 local Lighting = cloneref(game:GetService("Lighting"))
@@ -247,8 +14,21 @@ local Camera = workspace.CurrentCamera
 local LocalPlayer = Players.LocalPlayer
 local ReplicatedStorage = cloneref(game:GetService("ReplicatedStorage"))
 
+local repo = "https://raw.githubusercontent.com/deividcomsono/Obsidian/main/"
+local Library = loadstring(game:HttpGet(repo .. "Library.lua"))()
+local ThemeManager = loadstring(game:HttpGet(repo .. "addons/ThemeManager.lua"))()
+local SaveManager = loadstring(game:HttpGet(repo .. "addons/SaveManager.lua"))()
+
+local Options = Library.Options
+local Toggles = Library.Toggles
+
+if getgenv then
+    getgenv().Toggles = Toggles
+    getgenv().Options = Options
+end
+
 local cheat = {
-    Library = loadstring(game:HttpGet('https://raw.githubusercontent.com/some1strange/builds/refs/heads/main/LinoriaModded.lua'))(),
+    Library = Library,
     drawings = {},
     connections = {}
 }
@@ -284,22 +64,28 @@ local EspLibrary = {
     }
 }
 
-local window = cheat.Library:CreateWindow({ Title = MY_CHEAT_TITLE, Center = true, AutoShow = true, TabPadding = 8 })
+local window = cheat.Library:CreateWindow({ 
+    Title = MY_CHEAT_TITLE, 
+    Center = true, 
+    AutoShow = true, 
+    TabPadding = 8,
+    MenuFadeTime = 0.2
+})
 local combatTab = window:AddTab('пвпе с гандонам')
 local visualsTab = window:AddTab('еэээ вайзуал')
 local miscTab = window:AddTab('миск')
 
-local hitboxGroup = combatTab:AddLeftTabbox():AddTab("увилечет башка")
-local magicbulletGroup = combatTab:AddRightTabbox():AddTab("player redirection")
-local espGroup = visualsTab:AddLeftTabbox():AddTab("пидарас есп")
-local chamsGroup = visualsTab:AddRightTabbox():AddTab("чомс")
-local armorGroup = visualsTab:AddRightTabbox():AddTab("Armor ESP")
-local extraEspGroup = visualsTab:AddLeftTabbox():AddTab("Items & Weapons")
-local trailChamsGroup = visualsTab:AddLeftTabbox():AddTab("Trails & Chams")
-local waterGroup = visualsTab:AddRightTabbox():AddTab("Water Settings")
-local miscGroup = miscTab:AddLeftTabbox():AddTab("разное говно")
-local teamGroup = miscTab:AddRightTabbox():AddTab("тимейты")
-local randGroup = miscTab:AddRightTabbox():AddTab("рандом хит")
+local hitboxGroup = combatTab:AddLeftGroupbox("увилечет башка")
+local magicbulletGroup = combatTab:AddRightGroupbox("player redirection")
+local espGroup = visualsTab:AddLeftGroupbox("пидарас есп")
+local chamsGroup = visualsTab:AddRightGroupbox("чомс")
+local armorGroup = visualsTab:AddRightGroupbox("Armor ESP")
+local extraEspGroup = visualsTab:AddLeftGroupbox("Items & Weapons")
+local trailChamsGroup = visualsTab:AddLeftGroupbox("Trails & Chams")
+local waterGroup = visualsTab:AddRightGroupbox("Water Settings")
+local miscGroup = miscTab:AddLeftGroupbox("разное говно")
+local teamGroup = miscTab:AddRightGroupbox("тимейты")
+local randGroup = miscTab:AddRightGroupbox("рандом хит")
 
 local validcharacters, assignedNames, nameCounter = {}, {}, 1
 
@@ -373,7 +159,7 @@ randGroup:AddSlider('rand_Head', { Text = 'Шанс головы', Default = 33,
 randGroup:AddSlider('rand_Body', { Text = 'Шанс тела', Default = 33, Min = 0, Max = 100, Rounding = 0, Callback = update_rand_label })
 randGroup:AddSlider('rand_Miss', { Text = 'Шанс промаха', Default = 34, Min = 0, Max = 100, 
 Rounding = 0, Callback = update_rand_label })
-local freecamGroup = miscTab:AddLeftTabbox():AddTab("Free Camera")
+local freecamGroup = miscTab:AddLeftGroupbox("Free Camera")
 
 -- БЕЗОПАСНЫЙ ПОИСК GUI PARENT
 local guiParent
@@ -711,168 +497,7 @@ miscGroup:AddToggle('ui_meme_img', { Text = 'Картинка на экране'
 
 -- ========================================================================
 -- [ КАСТОМНЫЙ ЧАТ ВНУТРИ СКРИПТА (ОБХОД БЛОКИРОВКИ ИГРЫ) ]
--- ========================================================================
-local ChatGui = Instance.new("ScreenGui", guiParent)
-ChatGui.Name = "CustomCheatChat"
-ChatGui.Enabled = true
-ChatGui.ResetOnSpawn = false
-
-local ChatFrame = Instance.new("Frame", ChatGui)
-ChatFrame.Size = UDim2.new(0, 450, 0, 350)
-ChatFrame.Position = UDim2.new(0.5, -225, 0.5, -175)
-ChatFrame.BackgroundColor3 = Color3.fromRGB(30, 20, 30)
-ChatFrame.BackgroundTransparency = 0.2
-ChatFrame.BorderSizePixel = 0
-ChatFrame.Active = true
-ChatFrame.Draggable = true
-Instance.new("UICorner", ChatFrame).CornerRadius = UDim.new(0, 12)
-local stroke = Instance.new("UIStroke", ChatFrame)
-stroke.Color = Color3.fromRGB(255, 182, 193)
-stroke.Thickness = 1.5
-stroke.Transparency = 0.3
-
-local Topbar = Instance.new("Frame", ChatFrame)
-Topbar.Size = UDim2.new(1, 0, 0, 40)
-Topbar.BackgroundTransparency = 1
-
-local Title = Instance.new("TextLabel", Topbar)
-Title.Size = UDim2.new(1, -40, 1, 0)
-Title.Position = UDim2.new(0, 15, 0, 0)
-Title.BackgroundTransparency = 1
-Title.Text = "🌸 Нежный Чат (Обход) 🌸"
-Title.TextColor3 = Color3.fromRGB(255, 182, 193)
-Title.TextXAlignment = Enum.TextXAlignment.Left
-Title.Font = Enum.Font.GothamBold
-Title.TextSize = 16
-
-local CloseBtn = Instance.new("TextButton", Topbar)
-CloseBtn.Size = UDim2.new(0, 40, 1, 0)
-CloseBtn.Position = UDim2.new(1, -40, 0, 0)
-CloseBtn.BackgroundTransparency = 1
-CloseBtn.Text = "✖"
-CloseBtn.TextColor3 = Color3.fromRGB(255, 182, 193)
-CloseBtn.Font = Enum.Font.GothamBold
-CloseBtn.TextSize = 18
-
-local Scroll = Instance.new("ScrollingFrame", ChatFrame)
-Scroll.Size = UDim2.new(1, -20, 1, -90)
-Scroll.Position = UDim2.new(0, 10, 0, 40)
-Scroll.BackgroundTransparency = 1
-Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
-Scroll.ScrollBarThickness = 3
-Scroll.ScrollBarImageColor3 = Color3.fromRGB(255, 182, 193)
-Scroll.AutomaticCanvasSize = Enum.AutomaticSize.None
-        
-local UIListLayout = Instance.new("UIListLayout", Scroll)
-UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-UIListLayout.Padding = UDim.new(0, 6)
-
-local InputBox = Instance.new("TextBox", ChatFrame)
-InputBox.Size = UDim2.new(1, -20, 0, 35)
-InputBox.Position = UDim2.new(0, 10, 1, -45)
-InputBox.BackgroundColor3 = Color3.fromRGB(45, 35, 45)
-InputBox.BackgroundTransparency = 0.4
-InputBox.TextColor3 = Color3.new(1, 1, 1)
-InputBox.PlaceholderText = " Напиши что-нибудь милое..."
-InputBox.PlaceholderColor3 = Color3.fromRGB(180, 150, 180)
-InputBox.TextXAlignment = Enum.TextXAlignment.Left
-InputBox.Font = Enum.Font.Gotham
-InputBox.TextSize = 14
-InputBox.ClearTextOnFocus = false
-Instance.new("UICorner", InputBox).CornerRadius = UDim.new(0, 8)
-local inStroke = Instance.new("UIStroke", InputBox)
-inStroke.Color = Color3.fromRGB(255, 182, 193)
-inStroke.Thickness = 1
-inStroke.Transparency = 0.6
-
-local newMessagesCount = 0
-local recentMessages = {}
-local systemMessages = {}
-
-local function addChatMessage(sender, text, isSystem)
-    local msgLabel = Instance.new("TextLabel", Scroll)
-    msgLabel.Size = UDim2.new(1, -10, 0, 0)
-    msgLabel.AutomaticSize = Enum.AutomaticSize.Y
-    msgLabel.BackgroundTransparency = 1
-    msgLabel.TextWrapped = true
-    msgLabel.TextXAlignment = Enum.TextXAlignment.Left
-    msgLabel.TextYAlignment = Enum.TextYAlignment.Top
-    msgLabel.Font = Enum.Font.Gotham
-    msgLabel.TextSize = 14
-    msgLabel.RichText = true
-            
-    local hexColor = isSystem and "#98FB98" or "#DDA0DD"
-    local prefix = isSystem and "[Система]" or "[" .. sender .. "]"
-            
-    local safeText = text:gsub("<", "&lt;"):gsub(">", "&gt;")
-    msgLabel.Text = string.format('<b><font color="%s">%s:</font></b> <font color="#F0F0F0">%s</font>', hexColor, prefix, safeText)
-end
-
-UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
-    Scroll.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 20)
-    Scroll.CanvasPosition = Vector2.new(0, Scroll.CanvasSize.Y.Offset)
-end)
-
-CloseBtn.MouseButton1Click:Connect(function() ChatGui.Enabled = false end)
-
-local function sendChatMessage(text)
-    pcall(function()
-        game:GetService("Players"):Chat(text)
-    end)
-end
-
-local function handleIncomingMessage(sender, text)
-    if systemMessages[text] and sender ~= "Система" then return end
-
-    local msgId = sender .. "_" .. text
-    if recentMessages[msgId] then return end
-    recentMessages[msgId] = true
-    task.delay(0.5, function() recentMessages[msgId] = nil end)
-
-    addChatMessage(sender, text, sender == "Система")
-    if not ChatGui.Enabled then
-        newMessagesCount = newMessagesCount + 1
-    end
-end
-
-InputBox.FocusLost:Connect(function(enterPressed)
-    if enterPressed and InputBox.Text ~= "" then
-        local msg = InputBox.Text
-        InputBox.Text = ""
-        sendChatMessage(msg)
-        handleIncomingMessage(LocalPlayer.Name, msg)
-    end
-end)
-
-for _, p in pairs(Players:GetPlayers()) do
-    p.Chatted:Connect(function(msg) handleIncomingMessage(p.Name, msg) end)
-end
-Players.PlayerAdded:Connect(function(p)
-    p.Chatted:Connect(function(msg) handleIncomingMessage(p.Name, msg) end)
-end)
-
-task.spawn(function()
-    while task.wait(120) do
-        if newMessagesCount > 0 then
-            cheat.Library:Notify("Новые сообщения в чате! 🌸")
-            newMessagesCount = 0
-        end
-    end
-end)
-
-miscGroup:AddButton('открыть чат', function()
-    ChatGui.Enabled = true
-    newMessagesCount = 0
-end)
-
-task.spawn(function()
-    if not LocalPlayer.Character then LocalPlayer.CharacterAdded:Wait() end
-    task.wait(3)
-    local sysMsg = string.format("Система-игрок(%s) заинжектил чит! На этом сервере))", LocalPlayer.Name)
-    systemMessages[sysMsg] = true
-    sendChatMessage(sysMsg)
-    handleIncomingMessage("Система", sysMsg)
-end)
+-- Chat Removed
 
 RunService:BindToRenderStep("OnlyUpCamera", Enum.RenderPriority.Camera.Value + 1, function()
     local target = (CamVars.Enabled) and CamVars.Height or 0
@@ -899,8 +524,7 @@ RunService.Heartbeat:Connect(function()
     end
 end)
 
-local worldEspBox = visualsTab:AddRightTabbox()
-local worldTab = worldEspBox:AddTab("World ESP (Лут)")
+local worldTab = visualsTab:AddRightGroupbox("World ESP (Лут)")
 
 worldTab:AddToggle('bags_en', { Text = 'Bags (Chams)', Default = false })
 worldTab:AddToggle('bags_box', { Text = 'Show Box', Default = false })
@@ -2070,3 +1694,21 @@ waterGroup:AddSlider('WaveSizeSlider', {
     Rounding = 1, 
     Callback = function(v) game.Workspace.Terrain.WaterWaveSize = v end 
 })
+
+local settingsTab = window:AddTab('Settings')
+local menuGroup = settingsTab:AddLeftGroupbox('Menu')
+menuGroup:AddButton('Unload', function() Library:Unload() end)
+menuGroup:AddLabel('Menu bind'):AddKeyPicker('MenuKeybind', { Default = 'RightShift', NoUI = true, Text = 'Menu keybind' })
+Library.ToggleKeybind = Options.MenuKeybind
+
+ThemeManager:SetLibrary(Library)
+SaveManager:SetLibrary(Library)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes({ 'MenuKeybind' })
+ThemeManager:SetFolder('Wasterware')
+SaveManager:SetFolder('Wasterware/Config')
+
+SaveManager:BuildConfigSection(settingsTab)
+ThemeManager:BuildThemeSection(settingsTab)
+
+SaveManager:LoadAutoloadConfig()
